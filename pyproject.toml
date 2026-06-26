@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "minima-benchmark-demo"
+version = "0.1.0"
+description = "Public, reproducible benchmark demo for Minima — cost-aware LLM model routing via the minima-cli SDK."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Mubit" }]
+
+# Pinned for reproducibility. minima-cli[seed] pulls the dataset loaders (datasets/huggingface-hub).
+dependencies = [
+  "minima-cli[seed]==0.4.10",
+  "anthropic==0.112.0",
+  "google-genai==2.10.0",
+  "openai==2.44.0",
+  "plotly==6.8.0",
+  "pandas==3.0.3",
+  "python-dotenv==1.2.2",
+]
+
+[project.scripts]
+minima-demo = "minima_demo.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/minima_demo"]

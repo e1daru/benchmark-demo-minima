@@ -1,0 +1,2648 @@
+{
+ "models": [
+  "gemini-2.5-flash-lite",
+  "gpt-4o-mini",
+  "gemini-3.1-flash-lite",
+  "gemini-2.5-flash",
+  "gemini-3-flash-preview",
+  "claude-haiku-4-5",
+  "gemini-2.5-pro",
+  "gemini-3.5-flash",
+  "gemini-3.1-pro-preview",
+  "gpt-4o",
+  "claude-sonnet-4-6",
+  "claude-opus-4-8"
+ ],
+ "prices": {
+  "gemini-2.5-flash-lite": [
+   0.09999999999999999,
+   0.39999999999999997
+  ],
+  "gpt-4o-mini": [
+   0.15,
+   0.6
+  ],
+  "gemini-3.1-flash-lite": [
+   0.25,
+   1.5
+  ],
+  "gemini-2.5-flash": [
+   0.3,
+   2.5
+  ],
+  "gemini-3-flash-preview": [
+   0.5,
+   3.0
+  ],
+  "claude-haiku-4-5": [
+   1.0,
+   5.0
+  ],
+  "gemini-2.5-pro": [
+   1.25,
+   10.0
+  ],
+  "gemini-3.5-flash": [
+   1.5,
+   9.0
+  ],
+  "gemini-3.1-pro-preview": [
+   2.0,
+   12.0
+  ],
+  "gpt-4o": [
+   2.5,
+   10.0
+  ],
+  "claude-sonnet-4-6": [
+   3.0,
+   15.0
+  ],
+  "claude-opus-4-8": [
+   5.0,
+   25.0
+  ]
+ },
+ "task_types": {
+  "order-extract": "extraction",
+  "retry-policy": "reasoning",
+  "binary-search": "code",
+  "extract-email": "extraction",
+  "extract-iso-date": "extraction",
+  "extract-json-field": "extraction",
+  "qa-capital-au": "qa",
+  "qa-element-symbol": "qa",
+  "qa-speed-light": "qa",
+  "qa-shakespeare": "qa",
+  "math-trains": "reasoning",
+  "math-discount": "reasoning",
+  "math-gsm": "reasoning",
+  "math-series": "reasoning",
+  "logic-ages": "reasoning",
+  "code-fizzbuzz": "code",
+  "code-reverse": "code",
+  "code-isprime": "code",
+  "code-anagram": "code",
+  "classify-sentiment": "classification",
+  "classify-lang": "classification",
+  "tool-args": "tool_use",
+  "summarize-keyword": "summarization"
+ },
+ "task_order": [
+  "order-extract",
+  "retry-policy",
+  "binary-search",
+  "extract-email",
+  "extract-iso-date",
+  "extract-json-field",
+  "qa-capital-au",
+  "qa-element-symbol",
+  "qa-speed-light",
+  "qa-shakespeare",
+  "math-trains",
+  "math-discount",
+  "math-gsm",
+  "math-series",
+  "logic-ages",
+  "code-fizzbuzz",
+  "code-reverse",
+  "code-isprime",
+  "code-anagram",
+  "classify-sentiment",
+  "classify-lang",
+  "tool-args",
+  "summarize-keyword"
+ ],
+ "cells": {
+  "order-extract": {
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 3.9500000000000005e-05,
+    "input_tokens": 26,
+    "output_tokens": 22,
+    "latency_ms": 1498,
+    "text": "* **Order ID:** A-9931\n* **Total:** $48.20",
+    "error": ""
+   },
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 1.7399999999999996e-05,
+    "input_tokens": 26,
+    "output_tokens": 37,
+    "latency_ms": 1603,
+    "text": "Here's how to extract the order ID and total:\n\n*   **Order ID:** A-9931\n*   **Total:** $48.20",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 5.28e-05,
+    "input_tokens": 26,
+    "output_tokens": 18,
+    "latency_ms": 1710,
+    "text": "Order ID: A-9931\nTotal: $48.20",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000237,
+    "input_tokens": 26,
+    "output_tokens": 22,
+    "latency_ms": 1811,
+    "text": "* **Order ID:** A-9931\n* **Total:** $48.20",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 1.2749999999999998e-05,
+    "input_tokens": 29,
+    "output_tokens": 14,
+    "latency_ms": 2058,
+    "text": "Order ID: A-9931  \nTotal: $48.20",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000147,
+    "input_tokens": 32,
+    "output_tokens": 23,
+    "latency_ms": 1855,
+    "text": "# Order Details\n\n**Order ID:** A-9931\n\n**Total:** $48.20",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 8.5e-05,
+    "input_tokens": 26,
+    "output_tokens": 24,
+    "latency_ms": 2124,
+    "text": "*   **Order ID:** A-9931\n*   **Total:** $48.20",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0002125,
+    "input_tokens": 29,
+    "output_tokens": 14,
+    "latency_ms": 2560,
+    "text": "Order ID: A-9931  \nTotal: $48.20",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.001065,
+    "input_tokens": 38,
+    "output_tokens": 35,
+    "latency_ms": 1086,
+    "text": "Here's the extracted information:\n\n- **Order ID:** A-9931\n- **Total:** $48.20",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.003424,
+    "input_tokens": 26,
+    "output_tokens": 281,
+    "latency_ms": 4769,
+    "text": "**Order ID:** A-9931\n**Total:** $48.20",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.002346,
+    "input_tokens": 32,
+    "output_tokens": 150,
+    "latency_ms": 3977,
+    "text": "Here are the extracted details from the provided string:\n\n| Field | Value |\n|-------|-------|\n| **Order ID** | A-9931 |\n| **Total** | $48.20 |\n\n### How They Were Extracted:\n- **Order ID** \u2192 Located af",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.006742500000000001,
+    "input_tokens": 26,
+    "output_tokens": 671,
+    "latency_ms": 6617,
+    "text": "**Order ID:** A-9931\n**Total:** $48.20",
+    "error": ""
+   }
+  },
+  "retry-policy": {
+   "gemini-3.1-flash-lite": {
+    "accuracy": 0.9,
+    "cost_usd": 0.001251,
+    "input_tokens": 18,
+    "output_tokens": 831,
+    "latency_ms": 3555,
+    "text": "To handle a flaky webhook, you should implement **Exponential Backoff with Full Jitter**. This prevents the \"thundering herd\" problem, where all failed webhooks retry at the exact same moment, potenti",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 0.9,
+    "cost_usd": 0.003526,
+    "input_tokens": 26,
+    "output_tokens": 700,
+    "latency_ms": 4517,
+    "text": "# Retry Policy with Jitter for Payment Webhooks\n\n## Implementation\n\n```python\nimport asyncio\nimport random\nimport time\nfrom typing import TypeVar, Callable, Any\nfrom functools import wraps\nimport logg",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 0.9,
+    "cost_usd": 0.002802,
+    "input_tokens": 18,
+    "output_tokens": 931,
+    "latency_ms": 6361,
+    "text": "When dealing with a payment webhook, the goal is to balance **reliability** (ensuring you process the payment) with **responsibility** (not DDOSing the payment provider if they are having an outage).\n",
+    "error": ""
+   },
+   "gemini-2.5-flash-lite": {
+    "accuracy": 0.9,
+    "cost_usd": 0.0006018,
+    "input_tokens": 18,
+    "output_tokens": 1500,
+    "latency_ms": 7432,
+    "text": "Let's design a robust retry policy with jitter for a flaky payment webhook. We'll aim for a policy that's aggressive enough to recover from temporary issues but not so aggressive that it overwhelms th",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 0.9,
+    "cost_usd": 0.0037554,
+    "input_tokens": 18,
+    "output_tokens": 1500,
+    "latency_ms": 8181,
+    "text": "Let's design a retry policy with jitter for a flaky payment webhook.\n\n## Retry Policy with Jitter for Payment Webhook\n\n**Goal:** To reliably deliver payment notifications despite temporary webhook unr",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 0.9,
+    "cost_usd": 0.00042359999999999994,
+    "input_tokens": 24,
+    "output_tokens": 700,
+    "latency_ms": 9684,
+    "text": "Designing a retry policy with jitter for a flaky payment webhook involves structuring how often and when to retry sending a request after a failure. A retry policy with jitter introduces randomness to",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 0.9,
+    "cost_usd": 0.012825,
+    "input_tokens": 18,
+    "output_tokens": 1422,
+    "latency_ms": 8296,
+    "text": "When dealing with a flaky payment webhook, a naive retry policy (like retrying every 5 seconds) can easily overwhelm your database or downstream APIs during an outage. This is known as the **thunderin",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 0.9,
+    "cost_usd": 0.00706,
+    "input_tokens": 24,
+    "output_tokens": 700,
+    "latency_ms": 8230,
+    "text": "When designing a retry policy for a flaky payment webhook, it's crucial to implement a strategy that balances between ensuring eventual success and avoiding overwhelming the server with too many reque",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 0.9,
+    "cost_usd": 0.017669999999999998,
+    "input_tokens": 34,
+    "output_tokens": 700,
+    "latency_ms": 8929,
+    "text": "# Retry Policy with Jitter for Payment Webhooks\n\n## Implementation\n\n```python\nimport random\nimport time\nfrom dataclasses import dataclass\n\n@dataclass\nclass RetryPolicy:\n    base_delay: float = 1.0    ",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 0.9,
+    "cost_usd": 0.010578,
+    "input_tokens": 26,
+    "output_tokens": 700,
+    "latency_ms": 13571,
+    "text": "# Retry Policy with Jitter for a Flaky Payment Webhook\n\n## The Problem\n\nPayment webhooks fail for several reasons with different characteristics:\n- **Transient network errors** \u2014 milliseconds to recov",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 0.9,
+    "cost_usd": 0.032232000000000004,
+    "input_tokens": 18,
+    "output_tokens": 2683,
+    "latency_ms": 22412,
+    "text": "For a flaky payment webhook, the stakes are high: you cannot afford to drop the event, but you also cannot accidentally cause a \"thundering herd\" that takes down your payment gateway (or your own syst",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 0.9,
+    "cost_usd": 0.0393625,
+    "input_tokens": 18,
+    "output_tokens": 3934,
+    "latency_ms": 33929,
+    "text": "Of course. Here is a robust retry policy with jitter for a flaky payment webhook, complete with a code example and a detailed justification of the math involved.\n\n---\n\n### The Problem: Flaky Payment W",
+    "error": ""
+   }
+  },
+  "binary-search": {
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00102975,
+    "input_tokens": 15,
+    "output_tokens": 684,
+    "latency_ms": 2706,
+    "text": "To implement binary search idiomatically in Python, we use the `bisect` module for production code. However, if you need to implement the algorithm from scratch, the following approach follows Pythoni",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0019635000000000004,
+    "input_tokens": 15,
+    "output_tokens": 652,
+    "latency_ms": 3494,
+    "text": "This implementation follows Python's idiomatic style, using descriptive naming and the standard integer division operator (`//`).\n\n### The Implementation\n\n```python\nfrom typing import List, Optional\n\n",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 0.003523,
+    "input_tokens": 23,
+    "output_tokens": 700,
+    "latency_ms": 4374,
+    "text": "# Binary Search Implementation\n\n```python\ndef binary_search(arr: list[int], target: int) -> int:\n    \"\"\"\n    Search for target in a sorted array using binary search.\n    \n    Args:\n        arr: A sort",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00036914999999999995,
+    "input_tokens": 21,
+    "output_tokens": 610,
+    "latency_ms": 9529,
+    "text": "Certainly! Below is an idiomatic implementation of the binary search algorithm in Python, along with a test function to verify its correctness.\n\n```python\ndef binary_search(arr, target):\n    \"\"\"Perfor",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 0.5,
+    "cost_usd": 0.0037545,
+    "input_tokens": 15,
+    "output_tokens": 1500,
+    "latency_ms": 7609,
+    "text": "Let's implement binary search in Python, focusing on being idiomatic, and include a test.\n\n```python\nimport math\n\ndef binary_search(arr, target):\n    \"\"\"\n    Performs a binary search on a sorted list ",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0093015,
+    "input_tokens": 15,
+    "output_tokens": 1031,
+    "latency_ms": 5613,
+    "text": "Here is an idiomatic Python implementation of the binary search algorithm, along with a comprehensive test suite using Python's built-in `unittest` module.\n\n### Implementation\n\nThis implementation use",
+    "error": ""
+   },
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0006014999999999999,
+    "input_tokens": 15,
+    "output_tokens": 1500,
+    "latency_ms": 15405,
+    "text": "Let's implement binary search in Python in an idiomatic way and then create a test for it.\n\n**Idiomatic Python Considerations:**\n\n*   **Clear Function Signature:** Use descriptive names for parameters",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 0.006872499999999999,
+    "input_tokens": 21,
+    "output_tokens": 682,
+    "latency_ms": 9734,
+    "text": "Binary search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly dividing the portion of the list that could contain the item in half until you've narrow",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 0.5,
+    "cost_usd": 0.01764,
+    "input_tokens": 28,
+    "output_tokens": 700,
+    "latency_ms": 8759,
+    "text": "# Binary Search in Python\n\nHere's an idiomatic implementation with tests.\n\n## Implementation\n\n```python\ndef binary_search(arr, target):\n    \"\"\"\n    Search for target in a sorted list using binary sear",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.010569,
+    "input_tokens": 23,
+    "output_tokens": 700,
+    "latency_ms": 9716,
+    "text": "## Binary Search Implementation\n\n```python\nfrom typing import TypeVar, Sequence\n\nT = TypeVar(\"T\", bound=int | float | str)\n\n\ndef binary_search(sequence: Sequence[T], target: T) -> int:\n    \"\"\"\n    Sea",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.027534,
+    "input_tokens": 15,
+    "output_tokens": 2292,
+    "latency_ms": 19878,
+    "text": "Here is the complete, idiomatic Python implementation of binary search. \n\nTo make it truly \"Pythonic,\" this code includes **type hints**, a **docstring**, uses **tuple unpacking** (where appropriate),",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.03500875,
+    "input_tokens": 15,
+    "output_tokens": 3499,
+    "latency_ms": 26336,
+    "text": "Of course. Here is an idiomatic Python implementation of binary search, complete with a standard `unittest` test suite and detailed explanations.\n\n### 1. The Implementation\n\nThis version is iterative,",
+    "error": ""
+   }
+  },
+  "extract-email": {
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 5.299999999999999e-06,
+    "input_tokens": 21,
+    "output_tokens": 8,
+    "latency_ms": 574,
+    "text": "bob_42@mail.co",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 6.5999999999999995e-06,
+    "input_tokens": 24,
+    "output_tokens": 5,
+    "latency_ms": 975,
+    "text": "bob_42@mail.co",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 1.725e-05,
+    "input_tokens": 21,
+    "output_tokens": 8,
+    "latency_ms": 546,
+    "text": "bob_42@mail.co",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 2.63e-05,
+    "input_tokens": 21,
+    "output_tokens": 8,
+    "latency_ms": 504,
+    "text": "bob_42@mail.co",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 7.7e-05,
+    "input_tokens": 27,
+    "output_tokens": 10,
+    "latency_ms": 664,
+    "text": "bob_42@mail.co",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 3.45e-05,
+    "input_tokens": 21,
+    "output_tokens": 8,
+    "latency_ms": 979,
+    "text": "bob_42@mail.co",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0001035,
+    "input_tokens": 21,
+    "output_tokens": 8,
+    "latency_ms": 929,
+    "text": "bob_42@mail.co",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00011,
+    "input_tokens": 24,
+    "output_tokens": 5,
+    "latency_ms": 463,
+    "text": "bob_42@mail.co",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000231,
+    "input_tokens": 27,
+    "output_tokens": 10,
+    "latency_ms": 1262,
+    "text": "bob_42@mail.co",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0018419999999999999,
+    "input_tokens": 21,
+    "output_tokens": 150,
+    "latency_ms": 2509,
+    "text": "bob_42@mail.co",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00368625,
+    "input_tokens": 21,
+    "output_tokens": 366,
+    "latency_ms": 3612,
+    "text": "bob_42@mail.co",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000435,
+    "input_tokens": 32,
+    "output_tokens": 11,
+    "latency_ms": 1564,
+    "text": "bob_42@mail.co",
+    "error": ""
+   }
+  },
+  "extract-iso-date": {
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 7.199999999999999e-06,
+    "input_tokens": 32,
+    "output_tokens": 10,
+    "latency_ms": 626,
+    "text": "2024-03-03",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 1.95e-05,
+    "input_tokens": 30,
+    "output_tokens": 25,
+    "latency_ms": 663,
+    "text": "The ISO-8601 date for 'March 3, 2024' is 2024-03-03.",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 2.3000000000000003e-05,
+    "input_tokens": 32,
+    "output_tokens": 10,
+    "latency_ms": 658,
+    "text": "2024-03-03",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 3.46e-05,
+    "input_tokens": 32,
+    "output_tokens": 10,
+    "latency_ms": 692,
+    "text": "2024-03-03",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 4.600000000000001e-05,
+    "input_tokens": 32,
+    "output_tokens": 10,
+    "latency_ms": 840,
+    "text": "2024-03-03",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 8.6e-05,
+    "input_tokens": 36,
+    "output_tokens": 10,
+    "latency_ms": 980,
+    "text": "2024-03-03",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000325,
+    "input_tokens": 30,
+    "output_tokens": 25,
+    "latency_ms": 705,
+    "text": "The ISO-8601 date for 'March 3, 2024' is 2024-03-03.",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000138,
+    "input_tokens": 32,
+    "output_tokens": 10,
+    "latency_ms": 861,
+    "text": "2024-03-03",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000558,
+    "input_tokens": 36,
+    "output_tokens": 30,
+    "latency_ms": 1319,
+    "text": "The ISO-8601 date for 'March 3, 2024' is **2024-03-03**.",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000415,
+    "input_tokens": 43,
+    "output_tokens": 8,
+    "latency_ms": 2273,
+    "text": "2024-03-03",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.002728,
+    "input_tokens": 32,
+    "output_tokens": 222,
+    "latency_ms": 3265,
+    "text": "2024-03-03",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00483,
+    "input_tokens": 32,
+    "output_tokens": 479,
+    "latency_ms": 4538,
+    "text": "2024-03-03",
+    "error": ""
+   }
+  },
+  "extract-json-field": {
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 2.3e-06,
+    "input_tokens": 19,
+    "output_tokens": 1,
+    "latency_ms": 609,
+    "text": "7",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 4.35e-06,
+    "input_tokens": 25,
+    "output_tokens": 1,
+    "latency_ms": 488,
+    "text": "7",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 6.25e-06,
+    "input_tokens": 19,
+    "output_tokens": 1,
+    "latency_ms": 418,
+    "text": "7",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 8.2e-06,
+    "input_tokens": 19,
+    "output_tokens": 1,
+    "latency_ms": 361,
+    "text": "7",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 1.25e-05,
+    "input_tokens": 19,
+    "output_tokens": 1,
+    "latency_ms": 663,
+    "text": "7",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 5.1e-05,
+    "input_tokens": 26,
+    "output_tokens": 5,
+    "latency_ms": 652,
+    "text": "7",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 3.7500000000000003e-05,
+    "input_tokens": 19,
+    "output_tokens": 1,
+    "latency_ms": 804,
+    "text": "7",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 7.25e-05,
+    "input_tokens": 25,
+    "output_tokens": 1,
+    "latency_ms": 765,
+    "text": "7",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000153,
+    "input_tokens": 26,
+    "output_tokens": 5,
+    "latency_ms": 1045,
+    "text": "7",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00221375,
+    "input_tokens": 19,
+    "output_tokens": 219,
+    "latency_ms": 2455,
+    "text": "7",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000235,
+    "input_tokens": 32,
+    "output_tokens": 3,
+    "latency_ms": 1298,
+    "text": "7",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.001502,
+    "input_tokens": 19,
+    "output_tokens": 122,
+    "latency_ms": 2449,
+    "text": "7",
+    "error": ""
+   }
+  },
+  "qa-capital-au": {
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 1.8999999999999996e-06,
+    "input_tokens": 11,
+    "output_tokens": 2,
+    "latency_ms": 526,
+    "text": "Canberra",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 5.75e-06,
+    "input_tokens": 11,
+    "output_tokens": 2,
+    "latency_ms": 604,
+    "text": "Canberra",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 4.35e-06,
+    "input_tokens": 17,
+    "output_tokens": 3,
+    "latency_ms": 621,
+    "text": "Canberra.",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 8.299999999999998e-06,
+    "input_tokens": 11,
+    "output_tokens": 2,
+    "latency_ms": 517,
+    "text": "Canberra",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 5.2e-05,
+    "input_tokens": 17,
+    "output_tokens": 7,
+    "latency_ms": 576,
+    "text": "Canberra",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 3.45e-05,
+    "input_tokens": 11,
+    "output_tokens": 2,
+    "latency_ms": 737,
+    "text": "Canberra",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 6.25e-05,
+    "input_tokens": 17,
+    "output_tokens": 2,
+    "latency_ms": 454,
+    "text": "Canberra",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000245,
+    "input_tokens": 19,
+    "output_tokens": 6,
+    "latency_ms": 912,
+    "text": "Canberra",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000186,
+    "input_tokens": 17,
+    "output_tokens": 9,
+    "latency_ms": 1152,
+    "text": "**Canberra**",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00093375,
+    "input_tokens": 11,
+    "output_tokens": 92,
+    "latency_ms": 2047,
+    "text": "Canberra",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0012820000000000002,
+    "input_tokens": 11,
+    "output_tokens": 105,
+    "latency_ms": 2169,
+    "text": "Canberra",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 1.15e-05,
+    "input_tokens": 11,
+    "output_tokens": 2,
+    "latency_ms": 3870,
+    "text": "Canberra",
+    "error": ""
+   }
+  },
+  "qa-element-symbol": {
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 7.05e-06,
+    "input_tokens": 15,
+    "output_tokens": 8,
+    "latency_ms": 627,
+    "text": "The chemical symbol for gold is Au.",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 2.5200000000000003e-05,
+    "input_tokens": 9,
+    "output_tokens": 9,
+    "latency_ms": 457,
+    "text": "The chemical symbol for gold is **Au**.",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 1.575e-05,
+    "input_tokens": 9,
+    "output_tokens": 9,
+    "latency_ms": 552,
+    "text": "The chemical symbol for gold is **Au**.",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 3.15e-05,
+    "input_tokens": 9,
+    "output_tokens": 9,
+    "latency_ms": 1080,
+    "text": "The chemical symbol for gold is **Au**.",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000135,
+    "input_tokens": 15,
+    "output_tokens": 24,
+    "latency_ms": 769,
+    "text": "The chemical symbol for gold is **Au**.\n\nThis comes from its Latin name, \"aurum.\"",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0003105,
+    "input_tokens": 9,
+    "output_tokens": 33,
+    "latency_ms": 992,
+    "text": "The chemical symbol for gold is **Au**. \n\nThis symbol comes from the Latin word for gold, *aurum*, which translates to \"shining dawn.\"",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0001175,
+    "input_tokens": 15,
+    "output_tokens": 8,
+    "latency_ms": 706,
+    "text": "The chemical symbol for gold is Au.",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00035999999999999997,
+    "input_tokens": 15,
+    "output_tokens": 21,
+    "latency_ms": 1222,
+    "text": "The chemical symbol for gold is **Au**, derived from the Latin word *aurum*.",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0011459999999999999,
+    "input_tokens": 9,
+    "output_tokens": 94,
+    "latency_ms": 1927,
+    "text": "The chemical symbol for gold is **Au** (from the Latin word *aurum*).",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.001495,
+    "input_tokens": 19,
+    "output_tokens": 56,
+    "latency_ms": 1603,
+    "text": "The chemical symbol for gold is **Au**.\n\nThis comes from the Latin word for gold, *aurum*. Gold is a precious metal with the atomic number 79.",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00392125,
+    "input_tokens": 9,
+    "output_tokens": 391,
+    "latency_ms": 4117,
+    "text": "The chemical symbol for gold is **Au**.\n\nThis comes from its Latin name, *aurum*, which means \"shining dawn.\"",
+    "error": ""
+   },
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 4.5e-06,
+    "input_tokens": 9,
+    "output_tokens": 9,
+    "latency_ms": 8479,
+    "text": "The chemical symbol for gold is **Au**.",
+    "error": ""
+   }
+  },
+  "qa-speed-light": {
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 1.41e-05,
+    "input_tokens": 17,
+    "output_tokens": 31,
+    "latency_ms": 649,
+    "text": "The speed of light in a vacuum, to 3 significant figures, is **3.00 x 10<sup>8</sup> m/s**.",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 3.7250000000000004e-05,
+    "input_tokens": 17,
+    "output_tokens": 22,
+    "latency_ms": 622,
+    "text": "The speed of light in a vacuum is **3.00 \u00d7 10\u2078 m/s**.",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00013509999999999998,
+    "input_tokens": 17,
+    "output_tokens": 52,
+    "latency_ms": 864,
+    "text": "The speed of light in a vacuum is exactly $299,792,458$ m/s.\n\nTo 3 significant figures, this is $3.00 \\times 10^8$ m/s.",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 4.05e-05,
+    "input_tokens": 22,
+    "output_tokens": 62,
+    "latency_ms": 1182,
+    "text": "The speed of light in a vacuum is approximately \\( 3.00 \\times 10^8 \\) m/s, or 299,792,458 m/s when expressed in full. To three significant figures, it is \\( 3.00 \\times 10^8 \\) m/s.",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0001045,
+    "input_tokens": 17,
+    "output_tokens": 32,
+    "latency_ms": 863,
+    "text": "The speed of light in a vacuum, to three significant figures, is **$3.00 \\times 10^8$ m/s**.",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0005205,
+    "input_tokens": 17,
+    "output_tokens": 55,
+    "latency_ms": 1022,
+    "text": "The speed of light in a vacuum to 3 significant figures is **$3.00 \\times 10^8 \\text{ m/s}$** (or $300,000,000 \\text{ m/s}$).",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000439,
+    "input_tokens": 24,
+    "output_tokens": 83,
+    "latency_ms": 1254,
+    "text": "# Speed of Light in Vacuum\n\n**3.00 \u00d7 10\u2078 m/s**\n\n(or 300,000,000 m/s)\n\nThe more precise value is 299,792,458 m/s, which rounds to 3.00 \u00d7 10\u2078 m/s to 3 significant figures.",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000355,
+    "input_tokens": 22,
+    "output_tokens": 30,
+    "latency_ms": 770,
+    "text": "The speed of light in a vacuum is approximately \\(3.00 \\times 10^8\\) meters per second, to three significant figures.",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0017499999999999998,
+    "input_tokens": 30,
+    "output_tokens": 64,
+    "latency_ms": 1600,
+    "text": "The speed of light in vacuum is approximately **3.00 \u00d7 10\u2078 m/s** (or 300,000,000 m/s).\n\nThe exact defined value is 299,792,458 m/s.",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000762,
+    "input_tokens": 24,
+    "output_tokens": 46,
+    "latency_ms": 1848,
+    "text": "The speed of light in vacuum is **3.00 \u00d7 10\u2078 m/s** (299,792,458 m/s exactly, rounded to 3 significant figures).",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00625,
+    "input_tokens": 17,
+    "output_tokens": 518,
+    "latency_ms": 5411,
+    "text": "The speed of light in a vacuum to 3 significant figures is **3.00 \u00d7 10\u2078 m/s** (or 300,000,000 m/s). \n\n*(For context, the exact value is 299,792,458 m/s).*",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00697125,
+    "input_tokens": 17,
+    "output_tokens": 695,
+    "latency_ms": 6489,
+    "text": "**3.00 x 10\u2078 m/s**",
+    "error": ""
+   }
+  },
+  "qa-shakespeare": {
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 1.4999999999999998e-06,
+    "input_tokens": 11,
+    "output_tokens": 1,
+    "latency_ms": 450,
+    "text": "Shakespeare",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 4.25e-06,
+    "input_tokens": 11,
+    "output_tokens": 1,
+    "latency_ms": 520,
+    "text": "Shakespeare",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 4.05e-06,
+    "input_tokens": 19,
+    "output_tokens": 2,
+    "latency_ms": 651,
+    "text": "Shakespeare",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 5.7999999999999995e-06,
+    "input_tokens": 11,
+    "output_tokens": 1,
+    "latency_ms": 363,
+    "text": "Shakespeare",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 4.0999999999999994e-05,
+    "input_tokens": 21,
+    "output_tokens": 4,
+    "latency_ms": 575,
+    "text": "Shakespeare",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 8.5e-06,
+    "input_tokens": 11,
+    "output_tokens": 1,
+    "latency_ms": 740,
+    "text": "Shakespeare",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 2.5500000000000003e-05,
+    "input_tokens": 11,
+    "output_tokens": 1,
+    "latency_ms": 770,
+    "text": "Shakespeare",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 6.75e-05,
+    "input_tokens": 19,
+    "output_tokens": 2,
+    "latency_ms": 555,
+    "text": "Shakespeare",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000123,
+    "input_tokens": 21,
+    "output_tokens": 4,
+    "latency_ms": 1186,
+    "text": "Shakespeare",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000335,
+    "input_tokens": 27,
+    "output_tokens": 8,
+    "latency_ms": 1275,
+    "text": "Shakespeare",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00157375,
+    "input_tokens": 11,
+    "output_tokens": 156,
+    "latency_ms": 2022,
+    "text": "Shakespeare",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000886,
+    "input_tokens": 11,
+    "output_tokens": 72,
+    "latency_ms": 2073,
+    "text": "Shakespeare",
+    "error": ""
+   }
+  },
+  "math-trains": {
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 4.95e-06,
+    "input_tokens": 29,
+    "output_tokens": 1,
+    "latency_ms": 611,
+    "text": "80",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 9.5e-06,
+    "input_tokens": 26,
+    "output_tokens": 2,
+    "latency_ms": 496,
+    "text": "80",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 1.28e-05,
+    "input_tokens": 26,
+    "output_tokens": 2,
+    "latency_ms": 520,
+    "text": "80",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 5.7e-05,
+    "input_tokens": 32,
+    "output_tokens": 5,
+    "latency_ms": 639,
+    "text": "80",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 1.9e-05,
+    "input_tokens": 26,
+    "output_tokens": 2,
+    "latency_ms": 834,
+    "text": "80",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 5.7e-05,
+    "input_tokens": 26,
+    "output_tokens": 2,
+    "latency_ms": 851,
+    "text": "80",
+    "error": ""
+   },
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0001658,
+    "input_tokens": 26,
+    "output_tokens": 408,
+    "latency_ms": 2077,
+    "text": "60 km in 45 minutes.\nTo convert this to km/h, we need to find out how many kilometers the train travels in 60 minutes (1 hour).\n\nFirst, find the speed in km per minute:\nSpeed (km/min) = Distance (km) ",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000171,
+    "input_tokens": 32,
+    "output_tokens": 5,
+    "latency_ms": 1027,
+    "text": "80",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00025,
+    "input_tokens": 35,
+    "output_tokens": 3,
+    "latency_ms": 987,
+    "text": "80",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 8.25e-05,
+    "input_tokens": 29,
+    "output_tokens": 1,
+    "latency_ms": 3737,
+    "text": "80",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.004504,
+    "input_tokens": 26,
+    "output_tokens": 371,
+    "latency_ms": 4246,
+    "text": "80",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0121925,
+    "input_tokens": 26,
+    "output_tokens": 1216,
+    "latency_ms": 9126,
+    "text": "80",
+    "error": ""
+   }
+  },
+  "math-discount": {
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 1.2499999999999999e-05,
+    "input_tokens": 32,
+    "output_tokens": 3,
+    "latency_ms": 466,
+    "text": "189",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 0.0,
+    "cost_usd": 7.049999999999999e-06,
+    "input_tokens": 35,
+    "output_tokens": 3,
+    "latency_ms": 567,
+    "text": "192.5",
+    "error": ""
+   },
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 6.12e-05,
+    "input_tokens": 32,
+    "output_tokens": 145,
+    "latency_ms": 1006,
+    "text": "Here's how to calculate the final price:\n\n1. **Calculate the discount amount:**\n   $250 \\times 30\\% = 250 \\times 0.30 = 75$\n\n2. **Calculate the discounted price:**\n   $250 - 75 = 175$\n\n3. **Calculate ",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 2.4999999999999998e-05,
+    "input_tokens": 32,
+    "output_tokens": 3,
+    "latency_ms": 810,
+    "text": "189",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0003421,
+    "input_tokens": 32,
+    "output_tokens": 133,
+    "latency_ms": 899,
+    "text": "Here's how to calculate the final price:\n\n1. **Calculate the discount:**\n   $250 \\times 0.30 = $75\n\n2. **Calculate the price after the discount:**\n   $250 - $75 = $175\n\n3. **Calculate the tax:**\n   $1",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 0.0,
+    "cost_usd": 7.199999999999999e-05,
+    "input_tokens": 37,
+    "output_tokens": 7,
+    "latency_ms": 999,
+    "text": "189.70",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 7.500000000000001e-05,
+    "input_tokens": 32,
+    "output_tokens": 3,
+    "latency_ms": 884,
+    "text": "189",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00011749999999999998,
+    "input_tokens": 35,
+    "output_tokens": 3,
+    "latency_ms": 619,
+    "text": "189.00",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00029,
+    "input_tokens": 43,
+    "output_tokens": 3,
+    "latency_ms": 1044,
+    "text": "189",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000951,
+    "input_tokens": 37,
+    "output_tokens": 56,
+    "latency_ms": 1792,
+    "text": "**Step 1: Apply 30% discount**\n$250 \u00d7 0.70 = $175\n\n**Step 2: Apply 8% tax**\n$175 \u00d7 1.08 = $189\n\n**189**",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0048400000000000006,
+    "input_tokens": 32,
+    "output_tokens": 398,
+    "latency_ms": 3946,
+    "text": "189",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.01196,
+    "input_tokens": 32,
+    "output_tokens": 1192,
+    "latency_ms": 8544,
+    "text": "189",
+    "error": ""
+   }
+  },
+  "math-gsm": {
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 5.1e-06,
+    "input_tokens": 30,
+    "output_tokens": 1,
+    "latency_ms": 504,
+    "text": "19",
+    "error": ""
+   },
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 3.2999999999999997e-06,
+    "input_tokens": 25,
+    "output_tokens": 2,
+    "latency_ms": 602,
+    "text": "19",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 9.250000000000001e-06,
+    "input_tokens": 25,
+    "output_tokens": 2,
+    "latency_ms": 451,
+    "text": "19",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 1.2499999999999999e-05,
+    "input_tokens": 25,
+    "output_tokens": 2,
+    "latency_ms": 543,
+    "text": "19",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 1.8500000000000002e-05,
+    "input_tokens": 25,
+    "output_tokens": 2,
+    "latency_ms": 694,
+    "text": "19",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 5.9e-05,
+    "input_tokens": 34,
+    "output_tokens": 5,
+    "latency_ms": 568,
+    "text": "19",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 8.5e-05,
+    "input_tokens": 30,
+    "output_tokens": 1,
+    "latency_ms": 482,
+    "text": "19",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 5.550000000000001e-05,
+    "input_tokens": 25,
+    "output_tokens": 2,
+    "latency_ms": 803,
+    "text": "19",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00027,
+    "input_tokens": 39,
+    "output_tokens": 3,
+    "latency_ms": 1008,
+    "text": "19",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000432,
+    "input_tokens": 34,
+    "output_tokens": 22,
+    "latency_ms": 1454,
+    "text": "3 \u00d7 12 = 36 \u2212 17 = **19**",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0017299999999999998,
+    "input_tokens": 25,
+    "output_tokens": 140,
+    "latency_ms": 2766,
+    "text": "19",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00494125,
+    "input_tokens": 25,
+    "output_tokens": 491,
+    "latency_ms": 4225,
+    "text": "19",
+    "error": ""
+   }
+  },
+  "math-series": {
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 3.1999999999999994e-06,
+    "input_tokens": 16,
+    "output_tokens": 4,
+    "latency_ms": 589,
+    "text": "5050",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 9.999999999999999e-06,
+    "input_tokens": 16,
+    "output_tokens": 4,
+    "latency_ms": 486,
+    "text": "5050",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 4.2000000000000004e-06,
+    "input_tokens": 20,
+    "output_tokens": 2,
+    "latency_ms": 579,
+    "text": "5050",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 1.4799999999999999e-05,
+    "input_tokens": 16,
+    "output_tokens": 4,
+    "latency_ms": 384,
+    "text": "5050",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 5.1e-05,
+    "input_tokens": 21,
+    "output_tokens": 6,
+    "latency_ms": 616,
+    "text": "5050",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 1.9999999999999998e-05,
+    "input_tokens": 16,
+    "output_tokens": 4,
+    "latency_ms": 944,
+    "text": "5050",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 7e-05,
+    "input_tokens": 20,
+    "output_tokens": 2,
+    "latency_ms": 514,
+    "text": "5050",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 6e-05,
+    "input_tokens": 16,
+    "output_tokens": 4,
+    "latency_ms": 809,
+    "text": "5050",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000153,
+    "input_tokens": 21,
+    "output_tokens": 6,
+    "latency_ms": 1051,
+    "text": "5050",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00021999999999999998,
+    "input_tokens": 24,
+    "output_tokens": 4,
+    "latency_ms": 1051,
+    "text": "5050",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.002192,
+    "input_tokens": 16,
+    "output_tokens": 180,
+    "latency_ms": 2932,
+    "text": "5050",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0043300000000000005,
+    "input_tokens": 16,
+    "output_tokens": 431,
+    "latency_ms": 4455,
+    "text": "5050",
+    "error": ""
+   }
+  },
+  "logic-ages": {
+   "gpt-4o-mini": {
+    "accuracy": 0.0,
+    "cost_usd": 5.55e-06,
+    "input_tokens": 33,
+    "output_tokens": 1,
+    "latency_ms": 557,
+    "text": "30",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 1.0500000000000001e-05,
+    "input_tokens": 30,
+    "output_tokens": 2,
+    "latency_ms": 422,
+    "text": "20",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 2.1000000000000002e-05,
+    "input_tokens": 30,
+    "output_tokens": 2,
+    "latency_ms": 778,
+    "text": "20",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 0.0,
+    "cost_usd": 5.9e-05,
+    "input_tokens": 34,
+    "output_tokens": 5,
+    "latency_ms": 632,
+    "text": "16",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 0.0,
+    "cost_usd": 6.3e-05,
+    "input_tokens": 30,
+    "output_tokens": 2,
+    "latency_ms": 837,
+    "text": "10",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 0.0,
+    "cost_usd": 9.25e-05,
+    "input_tokens": 33,
+    "output_tokens": 1,
+    "latency_ms": 670,
+    "text": "15",
+    "error": ""
+   },
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00018859999999999998,
+    "input_tokens": 30,
+    "output_tokens": 464,
+    "latency_ms": 2271,
+    "text": "Let A be Anna's current age and B be Ben's current age.\n\nFrom the problem statement, we have two pieces of information:\n\n1.  Anna is twice Ben's age.\n    This can be written as an equation:\n    $A = 2",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.001104,
+    "input_tokens": 30,
+    "output_tokens": 438,
+    "latency_ms": 2285,
+    "text": "Let A be Anna's current age and B be Ben's current age.\n\nFrom the first statement: \"Anna is twice Ben's age.\"\nA = 2B  (Equation 1)\n\nFrom the second statement: \"In 5 years their ages sum to 40.\"\nIn 5 y",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0019649999999999997,
+    "input_tokens": 43,
+    "output_tokens": 70,
+    "latency_ms": 1472,
+    "text": "Let Ben's age = B, Anna's age = 2B.\n\n(2B + 5) + (B + 5) = 40\n3B + 10 = 40\n3B = 30\nB = 10\n\nAnna's age = 20",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.001212,
+    "input_tokens": 34,
+    "output_tokens": 74,
+    "latency_ms": 2242,
+    "text": "Let Ben's age = b, Anna's age = 2b\n\nIn 5 years: (2b + 5) + (b + 5) = 40\n3b + 10 = 40\n3b = 30\nb = 10\n\nAnna = 2(10) = **20**",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.004236,
+    "input_tokens": 30,
+    "output_tokens": 348,
+    "latency_ms": 3349,
+    "text": "20",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0069075000000000004,
+    "input_tokens": 30,
+    "output_tokens": 687,
+    "latency_ms": 5480,
+    "text": "20",
+    "error": ""
+   }
+  },
+  "code-fizzbuzz": {
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0006500000000000001,
+    "input_tokens": 14,
+    "output_tokens": 431,
+    "latency_ms": 1936,
+    "text": "Here is the most idiomatic way to implement FizzBuzz in Python.\n\n### The Standard Approach\nUsing a loop and simple `if/elif` logic is the most readable and \"Pythonic\" way to handle this, as it is expl",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00017384999999999997,
+    "input_tokens": 19,
+    "output_tokens": 285,
+    "latency_ms": 3664,
+    "text": "Certainly! The FizzBuzz problem is a classic programming task that requires printing numbers from 1 to `n`, with the following rules:\n\n- For numbers that are divisible by 3, print \"Fizz\".\n- For number",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.001168,
+    "input_tokens": 14,
+    "output_tokens": 387,
+    "latency_ms": 2534,
+    "text": "An idiomatic way to write `fizzbuzz(n)` in Python often involves using a generator expression or a simple loop.\n\nHere is the most readable and standard implementation:\n\n```python\ndef fizzbuzz(n):\n    ",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0018616999999999998,
+    "input_tokens": 14,
+    "output_tokens": 743,
+    "latency_ms": 3626,
+    "text": "```python\ndef fizzbuzz(n: int) -> list[str]:\n    \"\"\"\n    Generates a list of strings for the FizzBuzz problem up to n.\n\n    For each number:\n    - If it's a multiple of 3 and 5, the string is \"FizzBuz",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0018230000000000002,
+    "input_tokens": 23,
+    "output_tokens": 360,
+    "latency_ms": 3297,
+    "text": "# Idiomatic Python FizzBuzz\n\n```python\ndef fizzbuzz(n: int) -> None:\n    \"\"\"Print FizzBuzz sequence from 1 to n (inclusive).\"\"\"\n    for i in range(1, n + 1):\n        output = \"\"\n        if i % 3 == 0:",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0027975,
+    "input_tokens": 19,
+    "output_tokens": 275,
+    "latency_ms": 3328,
+    "text": "Certainly! The FizzBuzz problem is a classic programming challenge. Here's an idiomatic implementation of `fizzbuzz(n)` in Python:\n\n```python\ndef fizzbuzz(n):\n    for i in range(1, n + 1):\n        out",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.005358,
+    "input_tokens": 14,
+    "output_tokens": 593,
+    "latency_ms": 3654,
+    "text": "Here is the most idiomatic Python implementation of `fizzbuzz(n)`. \n\nThis version uses Python's **string multiplication** and the **`or` operator** for a clean, concise, and highly readable solution w",
+    "error": ""
+   },
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0005122,
+    "input_tokens": 14,
+    "output_tokens": 1277,
+    "latency_ms": 6366,
+    "text": "```python\ndef fizzbuzz(n):\n  \"\"\"\n  Prints numbers from 1 to n, replacing multiples of 3 with \"Fizz\",\n  multiples of 5 with \"Buzz\", and multiples of both 3 and 5 with \"FizzBuzz\".\n\n  Args:\n    n: The up",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.003954,
+    "input_tokens": 23,
+    "output_tokens": 259,
+    "latency_ms": 4862,
+    "text": "```python\ndef fizzbuzz(n):\n    for i in range(1, n + 1):\n        print(\"Fizz\" * (i % 3 == 0) + \"Buzz\" * (i % 5 == 0) or i)\n```\n\n**How it works:**\n\n- `\"Fizz\" * (i % 3 == 0)` \u2192 `\"Fizz\"` or `\"\"`  \n- `\"Bu",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.016175,
+    "input_tokens": 30,
+    "output_tokens": 641,
+    "latency_ms": 7496,
+    "text": "# FizzBuzz in Python\n\nHere's an idiomatic implementation:\n\n```python\ndef fizzbuzz(n):\n    \"\"\"Print FizzBuzz for numbers 1 through n.\n\n    For multiples of 3, print \"Fizz\".\n    For multiples of 5, prin",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.024184,
+    "input_tokens": 14,
+    "output_tokens": 2013,
+    "latency_ms": 17135,
+    "text": "Here is the most idiomatic, modern Python implementation. \n\nIt uses a **list comprehension**, **boolean-to-integer coercion**, and **short-circuit evaluation** to solve the problem cleanly without nes",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0285075,
+    "input_tokens": 14,
+    "output_tokens": 2849,
+    "latency_ms": 22773,
+    "text": "Of course. Here are a few idiomatic ways to write a `fizzbuzz` function in Python, from the most common and readable to more compact versions.\n\n### 1. The Clear and Direct Solution (Most Recommended)\n",
+    "error": ""
+   }
+  },
+  "code-reverse": {
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00019779999999999998,
+    "input_tokens": 14,
+    "output_tokens": 491,
+    "latency_ms": 2201,
+    "text": "```python\ndef reverse_string(s):\n  \"\"\"\n  Reverses a given string.\n\n  Args:\n    s: The input string.\n\n  Returns:\n    The reversed string.\n  \"\"\"\n  return s[::-1]\n\n# Assert test for the reverse_string fu",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0005690000000000001,
+    "input_tokens": 14,
+    "output_tokens": 377,
+    "latency_ms": 1769,
+    "text": "In Python, the most idiomatic and efficient way to reverse a string is using **extended slice syntax**.\n\n### The Implementation\n\n```python\ndef reverse_string(s: str) -> str:\n    \"\"\"Returns the reverse",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0001167,
+    "input_tokens": 18,
+    "output_tokens": 190,
+    "latency_ms": 2797,
+    "text": "Sure! Below is a simple implementation of the `reverse_string` function in Python, along with an assert test to verify that it works correctly.\n\n```python\ndef reverse_string(s):\n    \"\"\"Reverse the inp",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0005966999999999999,
+    "input_tokens": 14,
+    "output_tokens": 237,
+    "latency_ms": 1387,
+    "text": "```python\ndef reverse_string(s):\n  \"\"\"\n  Reverses a given string.\n\n  Args:\n    s: The input string.\n\n  Returns:\n    The reversed string.\n  \"\"\"\n  return s[::-1]\n\n# Assert test\nassert reverse_string(\"he",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0012670000000000001,
+    "input_tokens": 14,
+    "output_tokens": 420,
+    "latency_ms": 2786,
+    "text": "Here are two ways to implement `reverse_string` in Python: the standard \"Pythonic\" way (using slicing) and a manual way (using a loop).\n\n### 1. Using Slicing (Recommended)\nThis is the most efficient a",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00157,
+    "input_tokens": 20,
+    "output_tokens": 310,
+    "latency_ms": 2488,
+    "text": "# Python reverse_string function with assert test\n\n```python\ndef reverse_string(s):\n    \"\"\"\n    Reverse a string and return the reversed string.\n    \n    Args:\n        s (str): The string to reverse\n ",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0030540000000000003,
+    "input_tokens": 14,
+    "output_tokens": 337,
+    "latency_ms": 2731,
+    "text": "Here is the Python function to reverse a string, along with `assert` tests to verify its correctness.\n\nIn Python, the most efficient and standard way to reverse a string is using slice notation `[::-1",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 0.003055,
+    "input_tokens": 18,
+    "output_tokens": 301,
+    "latency_ms": 3063,
+    "text": "Certainly! Below is a Python function `reverse_string(s)` that takes a string `s` as input and returns the string with its characters reversed. Additionally, I've included an assert test to verify tha",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00766,
+    "input_tokens": 14,
+    "output_tokens": 636,
+    "latency_ms": 6315,
+    "text": "Here is the Python function along with a few `assert` tests to verify it works correctly:\n\n```python\ndef reverse_string(s):\n    # Using Python's slicing feature to reverse the string\n    return s[::-1",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00525,
+    "input_tokens": 20,
+    "output_tokens": 346,
+    "latency_ms": 5872,
+    "text": "## Reverse String Function\n\n```python\ndef reverse_string(s: str) -> str:\n    \"\"\"\n    Reverses a given string.\n\n    Args:\n        s: The string to reverse.\n\n    Returns:\n        The reversed string.\n  ",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.013420000000000001,
+    "input_tokens": 24,
+    "output_tokens": 532,
+    "latency_ms": 5903,
+    "text": "# Reverse String Function\n\n```python\ndef reverse_string(s):\n    \"\"\"\n    Reverse a given string.\n\n    Args:\n        s (str): The string to reverse.\n\n    Returns:\n        str: The reversed string.\n\n    ",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0265875,
+    "input_tokens": 14,
+    "output_tokens": 2657,
+    "latency_ms": 21113,
+    "text": "Of course. Here is a Python function `reverse_string(s)` with `assert` tests.\n\nThe most common and Pythonic way to reverse a string is to use slicing.\n\n### 1. The Function (`reverse_string`)\n\nThis imp",
+    "error": ""
+   }
+  },
+  "code-isprime": {
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00071825,
+    "input_tokens": 17,
+    "output_tokens": 476,
+    "latency_ms": 1826,
+    "text": "To check if a number is prime, you must handle numbers less than 2 (which are not prime), the number 2 (the only even prime), and then optimize by checking divisibility only up to the square root of $",
+    "error": ""
+   },
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0006016999999999999,
+    "input_tokens": 17,
+    "output_tokens": 1500,
+    "latency_ms": 6419,
+    "text": "```python\nimport math\n\ndef is_prime(n):\n    \"\"\"\n    Checks if a given integer is a prime number.\n\n    Args:\n        n: An integer.\n\n    Returns:\n        True if n is a prime number, False otherwise.\n ",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0023034999999999996,
+    "input_tokens": 17,
+    "output_tokens": 765,
+    "latency_ms": 4265,
+    "text": "An efficient way to check for primality is the **trial division** method up to the square root of $n$. We also handle even numbers and multiples of 3 early to optimize the loop.\n\n```python\nimport math",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 0.003523,
+    "input_tokens": 23,
+    "output_tokens": 700,
+    "latency_ms": 3815,
+    "text": "# Python Prime Number Checker\n\n```python\ndef is_prime(n):\n    \"\"\"\n    Determines if a number is prime.\n    \n    Args:\n        n: An integer to check for primality\n        \n    Returns:\n        bool: T",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00029055,
+    "input_tokens": 21,
+    "output_tokens": 479,
+    "latency_ms": 8840,
+    "text": "Certainly! The `is_prime` function checks if a number \\( n \\) is a prime number. In this function, we will handle edge cases, such as:\n\n- Numbers less than 2 (0 and 1 are not prime).\n- Negative number",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0037151000000000003,
+    "input_tokens": 17,
+    "output_tokens": 1484,
+    "latency_ms": 7015,
+    "text": "Let's create a Python function `is_prime(n)` that handles edge cases and includes an `assert` statement for basic input validation.\n\n```python\ndef is_prime(n):\n    \"\"\"\n    Checks if a given integer n ",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0072975,
+    "input_tokens": 17,
+    "output_tokens": 808,
+    "latency_ms": 4389,
+    "text": "Here is a highly efficient implementation of the `is_prime(n)` function in Python. It handles all edge cases (negative numbers, 0, 1, and 2) and uses the $6k \\pm 1$ optimization for speed.\n\nIt also in",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0052925,
+    "input_tokens": 21,
+    "output_tokens": 524,
+    "latency_ms": 4803,
+    "text": "To implement the `is_prime(n)` function in Python along with handling edge cases, we can follow these steps:\n\n1. Handle edge cases where `n` is less than 2, since 0 and 1 are not prime numbers.\n2. Che",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.017644999999999997,
+    "input_tokens": 29,
+    "output_tokens": 700,
+    "latency_ms": 7515,
+    "text": "# Prime Number Checker\n\n```python\ndef is_prime(n):\n    \"\"\"\n    Determine whether a number is prime.\n\n    A prime number is a natural number greater than 1 that has no positive\n    divisors other than ",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.010569,
+    "input_tokens": 23,
+    "output_tokens": 700,
+    "latency_ms": 9116,
+    "text": "## Prime Number Checker\n\n```python\ndef is_prime(n: int) -> bool:\n    \"\"\"\n    Check if a number is prime.\n\n    A prime number is a natural number greater than 1 that has no positive\n    divisors other ",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.029157999999999996,
+    "input_tokens": 17,
+    "output_tokens": 2427,
+    "latency_ms": 18524,
+    "text": "Here is an optimized and robust `is_prime(n)` function. It handles edge cases like negative numbers, 0, 1, even numbers, and non-integer types (like floats or strings). \n\nIt uses the **$6k \\pm 1$ opti",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.02957125,
+    "input_tokens": 17,
+    "output_tokens": 2955,
+    "latency_ms": 22311,
+    "text": "Of course. Here is a well-documented and optimized Python `is_prime(n)` function that handles edge cases and uses an `assert` to enforce its input contract.\n\n### The Code\n\nThis version includes severa",
+    "error": ""
+   }
+  },
+  "code-anagram": {
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0006155,
+    "input_tokens": 20,
+    "output_tokens": 407,
+    "latency_ms": 1692,
+    "text": "To check if two strings are anagrams while ignoring case and whitespace, the most efficient approach is to:\n1. Remove all spaces from the strings.\n2. Convert both strings to the same case (lowercase).",
+    "error": ""
+   },
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0004496,
+    "input_tokens": 20,
+    "output_tokens": 1119,
+    "latency_ms": 4846,
+    "text": "```python\ndef is_anagram(a, b):\n  \"\"\"\n  Checks if two strings are anagrams of each other, ignoring case and spaces.\n\n  Args:\n    a: The first string.\n    b: The second string.\n\n  Returns:\n    True if ",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0015634999999999998,
+    "input_tokens": 20,
+    "output_tokens": 623,
+    "latency_ms": 3562,
+    "text": "```python\nimport re\n\ndef is_anagram(a, b):\n    \"\"\"\n    Checks if two strings are anagrams, ignoring case and spaces.\n\n    Args:\n        a: The first string.\n        b: The second string.\n\n    Returns:",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 0.5,
+    "cost_usd": 0.0019749999999999998,
+    "input_tokens": 20,
+    "output_tokens": 655,
+    "latency_ms": 3894,
+    "text": "To check if two strings are anagrams while ignoring case and spaces, the most efficient approach is to count the occurrences of each character.\n\nHere is the implementation using Python's built-in `col",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 0.003178,
+    "input_tokens": 28,
+    "output_tokens": 630,
+    "latency_ms": 3730,
+    "text": "# Python Anagram Function\n\n```python\ndef is_anagram(a, b):\n    \"\"\"\n    Check if two strings are anagrams, ignoring case and spaces.\n    \n    Args:\n        a: First string\n        b: Second string\n    ",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.004646999999999999,
+    "input_tokens": 20,
+    "output_tokens": 513,
+    "latency_ms": 3264,
+    "text": "Here is the Python implementation of the `is_anagram` function, which ignores case and whitespace, followed by a comprehensive test suite.\n\n### Code Implementation\n\n```python\ndef is_anagram(a: str, b:",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00024674999999999995,
+    "input_tokens": 25,
+    "output_tokens": 405,
+    "latency_ms": 10298,
+    "text": "Certainly! Below is a Python function named `is_anagram` that checks if two strings are anagrams of each other, while ignoring case and spaces. Additionally, I've included a test for this function.\n\n`",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0050025,
+    "input_tokens": 25,
+    "output_tokens": 494,
+    "latency_ms": 6208,
+    "text": "Certainly! To determine if two strings are anagrams while ignoring case and spaces, you can implement a function called `is_anagram`. Additionally, you can write a test to verify its correctness. Here",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.01766,
+    "input_tokens": 32,
+    "output_tokens": 700,
+    "latency_ms": 7667,
+    "text": "# Anagram Checker\n\n```python\ndef is_anagram(a, b):\n    \"\"\"\n    Check if two strings are anagrams, ignoring case and spaces.\n    \n    Args:\n        a (str): First string\n        b (str): Second string\n",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.010584000000000001,
+    "input_tokens": 28,
+    "output_tokens": 700,
+    "latency_ms": 8719,
+    "text": "## Anagram Checker\n\n### Implementation\n\n```python\ndef is_anagram(a: str, b: str) -> bool:\n    \"\"\"\n    Check if two strings are anagrams of each other,\n    ignoring case and spaces.\n\n    Args:\n        ",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.014044000000000001,
+    "input_tokens": 20,
+    "output_tokens": 1167,
+    "latency_ms": 10535,
+    "text": "Here is the Python function using `sorted()` along with a test block to verify it works.\n\n```python\ndef is_anagram(a, b):\n    # Remove spaces and convert to lowercase\n    clean_a = a.replace(\" \", \"\").",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.031155,
+    "input_tokens": 20,
+    "output_tokens": 3113,
+    "latency_ms": 23685,
+    "text": "Of course. Here is a Python function `is_anagram` that ignores case and spaces, along with a standard test class.\n\nThe most Pythonic way to solve this is to \"normalize\" both strings and then compare t",
+    "error": ""
+   }
+  },
+  "classify-sentiment": {
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 2.7e-06,
+    "input_tokens": 23,
+    "output_tokens": 1,
+    "latency_ms": 601,
+    "text": "NEGATIVE",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 7.25e-06,
+    "input_tokens": 23,
+    "output_tokens": 1,
+    "latency_ms": 443,
+    "text": "NEGATIVE",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 7.95e-06,
+    "input_tokens": 29,
+    "output_tokens": 6,
+    "latency_ms": 511,
+    "text": "The sentiment is NEGATIVE.",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 9.4e-06,
+    "input_tokens": 23,
+    "output_tokens": 1,
+    "latency_ms": 351,
+    "text": "NEGATIVE",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 1.45e-05,
+    "input_tokens": 23,
+    "output_tokens": 1,
+    "latency_ms": 844,
+    "text": "NEGATIVE",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00032500000000000004,
+    "input_tokens": 30,
+    "output_tokens": 59,
+    "latency_ms": 1226,
+    "text": "**NEGATIVE**\n\nThe sentiment is clearly negative. The statement expresses dissatisfaction with:\n1. A defective product (broke on day one)\n2. Poor customer service (support ignored the customer)\n\nBoth e",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 4.35e-05,
+    "input_tokens": 23,
+    "output_tokens": 1,
+    "latency_ms": 792,
+    "text": "NEGATIVE",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 9.25e-05,
+    "input_tokens": 29,
+    "output_tokens": 2,
+    "latency_ms": 717,
+    "text": "NEGATIVE",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.002086,
+    "input_tokens": 23,
+    "output_tokens": 170,
+    "latency_ms": 2671,
+    "text": "NEGATIVE",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0034687500000000005,
+    "input_tokens": 23,
+    "output_tokens": 344,
+    "latency_ms": 3671,
+    "text": "NEGATIVE",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00171,
+    "input_tokens": 30,
+    "output_tokens": 108,
+    "latency_ms": 3330,
+    "text": "## Sentiment Classification: **NEGATIVE** \ud83d\udd34\n\n### Reasoning:\n| Element | Signal |\n|---|---|\n| *\"broke on day one\"* | Product failure immediately after purchase |\n| *\"support ignored me\"* | Poor custome",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00343,
+    "input_tokens": 46,
+    "output_tokens": 128,
+    "latency_ms": 2589,
+    "text": "**Sentiment: NEGATIVE**\n\nThis statement expresses clear dissatisfaction through two negative experiences:\n1. **Product failure** \u2014 \"broke on day one\" indicates poor quality/durability\n2. **Poor custom",
+    "error": ""
+   }
+  },
+  "classify-lang": {
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 4.499999999999999e-06,
+    "input_tokens": 22,
+    "output_tokens": 2,
+    "latency_ms": 533,
+    "text": "French.",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 5.5e-06,
+    "input_tokens": 16,
+    "output_tokens": 1,
+    "latency_ms": 461,
+    "text": "French",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 7.2999999999999996e-06,
+    "input_tokens": 16,
+    "output_tokens": 1,
+    "latency_ms": 669,
+    "text": "French",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 1.1e-05,
+    "input_tokens": 16,
+    "output_tokens": 1,
+    "latency_ms": 748,
+    "text": "French",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 5.2000000000000004e-05,
+    "input_tokens": 27,
+    "output_tokens": 5,
+    "latency_ms": 810,
+    "text": "French.",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 7.5e-05,
+    "input_tokens": 22,
+    "output_tokens": 2,
+    "latency_ms": 506,
+    "text": "French.",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 3.3e-05,
+    "input_tokens": 16,
+    "output_tokens": 1,
+    "latency_ms": 905,
+    "text": "French",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00017099999999999998,
+    "input_tokens": 27,
+    "output_tokens": 6,
+    "latency_ms": 1166,
+    "text": "**French**",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00022,
+    "input_tokens": 29,
+    "output_tokens": 3,
+    "latency_ms": 1148,
+    "text": "French",
+    "error": ""
+   },
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 1.9999999999999995e-06,
+    "input_tokens": 16,
+    "output_tokens": 1,
+    "latency_ms": 4035,
+    "text": "French",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00206,
+    "input_tokens": 16,
+    "output_tokens": 204,
+    "latency_ms": 2661,
+    "text": "French",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0018079999999999997,
+    "input_tokens": 16,
+    "output_tokens": 148,
+    "latency_ms": 2618,
+    "text": "French",
+    "error": ""
+   }
+  },
+  "tool-args": {
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 1.2599999999999998e-05,
+    "input_tokens": 26,
+    "output_tokens": 25,
+    "latency_ms": 588,
+    "text": "```json\n{\n  \"city\": \"Paris\",\n  \"units\": \"celsius\"\n}\n```",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 0.0,
+    "cost_usd": 1.665e-05,
+    "input_tokens": 31,
+    "output_tokens": 20,
+    "latency_ms": 739,
+    "text": "```json\n{\n  \"city\": \"Paris\",\n  \"units\": \"metric\"\n}\n```",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 2.6e-05,
+    "input_tokens": 26,
+    "output_tokens": 13,
+    "latency_ms": 548,
+    "text": "{\"city\": \"Paris\", \"units\": \"celsius\"}",
+    "error": ""
+   },
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 7.03e-05,
+    "input_tokens": 26,
+    "output_tokens": 25,
+    "latency_ms": 619,
+    "text": "```json\n{\n  \"city\": \"Paris\",\n  \"units\": \"celsius\"\n}\n```",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000169,
+    "input_tokens": 34,
+    "output_tokens": 27,
+    "latency_ms": 781,
+    "text": "```json\n{\n  \"city\": \"Paris\",\n  \"units\": \"celsius\"\n}\n```",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 7.300000000000001e-05,
+    "input_tokens": 26,
+    "output_tokens": 20,
+    "latency_ms": 1011,
+    "text": "{\n  \"city\": \"Paris\",\n  \"units\": \"celsius\"\n}",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000219,
+    "input_tokens": 26,
+    "output_tokens": 20,
+    "latency_ms": 865,
+    "text": "{\n  \"city\": \"Paris\",\n  \"units\": \"celsius\"\n}",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0002875,
+    "input_tokens": 31,
+    "output_tokens": 21,
+    "latency_ms": 759,
+    "text": "```json\n{\n    \"city\": \"Paris\",\n    \"units\": \"celsius\"\n}\n```",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000735,
+    "input_tokens": 47,
+    "output_tokens": 20,
+    "latency_ms": 1271,
+    "text": "{\"city\": \"Paris\", \"units\": \"celsius\"}",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000507,
+    "input_tokens": 34,
+    "output_tokens": 27,
+    "latency_ms": 1772,
+    "text": "```json\n{\n  \"city\": \"Paris\",\n  \"units\": \"celsius\"\n}\n```",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00238,
+    "input_tokens": 26,
+    "output_tokens": 194,
+    "latency_ms": 3101,
+    "text": "{\n  \"city\": \"Paris\",\n  \"units\": \"celsius\"\n}",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.0040225,
+    "input_tokens": 26,
+    "output_tokens": 399,
+    "latency_ms": 4334,
+    "text": "```json\n{\n  \"city\": \"Paris\",\n  \"units\": \"celsius\"\n}\n```",
+    "error": ""
+   }
+  },
+  "summarize-keyword": {
+   "gemini-2.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 1.35e-05,
+    "input_tokens": 20,
+    "output_tokens": 3,
+    "latency_ms": 301,
+    "text": "**Tax**",
+    "error": ""
+   },
+   "gemini-2.5-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 2.8e-06,
+    "input_tokens": 20,
+    "output_tokens": 2,
+    "latency_ms": 595,
+    "text": "Taxes",
+    "error": ""
+   },
+   "gemini-3.1-flash-lite": {
+    "accuracy": 1.0,
+    "cost_usd": 8.000000000000001e-06,
+    "input_tokens": 20,
+    "output_tokens": 2,
+    "latency_ms": 584,
+    "text": "Taxation",
+    "error": ""
+   },
+   "gpt-4o-mini": {
+    "accuracy": 1.0,
+    "cost_usd": 5.7e-06,
+    "input_tokens": 26,
+    "output_tokens": 3,
+    "latency_ms": 611,
+    "text": "Taxation.",
+    "error": ""
+   },
+   "gemini-3-flash-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 1.6000000000000003e-05,
+    "input_tokens": 20,
+    "output_tokens": 2,
+    "latency_ms": 795,
+    "text": "Taxation",
+    "error": ""
+   },
+   "gemini-3.5-flash": {
+    "accuracy": 1.0,
+    "cost_usd": 4.8e-05,
+    "input_tokens": 20,
+    "output_tokens": 2,
+    "latency_ms": 779,
+    "text": "Taxation",
+    "error": ""
+   },
+   "gpt-4o": {
+    "accuracy": 1.0,
+    "cost_usd": 8.499999999999999e-05,
+    "input_tokens": 26,
+    "output_tokens": 2,
+    "latency_ms": 770,
+    "text": "Taxation",
+    "error": ""
+   },
+   "claude-haiku-4-5": {
+    "accuracy": 1.0,
+    "cost_usd": 5.3e-05,
+    "input_tokens": 28,
+    "output_tokens": 5,
+    "latency_ms": 1705,
+    "text": "Taxes",
+    "error": ""
+   },
+   "claude-opus-4-8": {
+    "accuracy": 1.0,
+    "cost_usd": 0.000315,
+    "input_tokens": 33,
+    "output_tokens": 6,
+    "latency_ms": 951,
+    "text": "Taxation",
+    "error": ""
+   },
+   "claude-sonnet-4-6": {
+    "accuracy": 1.0,
+    "cost_usd": 0.00018899999999999999,
+    "input_tokens": 28,
+    "output_tokens": 7,
+    "latency_ms": 1636,
+    "text": "**Taxation**",
+    "error": ""
+   },
+   "gemini-3.1-pro-preview": {
+    "accuracy": 1.0,
+    "cost_usd": 0.002464,
+    "input_tokens": 20,
+    "output_tokens": 202,
+    "latency_ms": 2747,
+    "text": "Taxes",
+    "error": ""
+   },
+   "gemini-2.5-pro": {
+    "accuracy": 1.0,
+    "cost_usd": 0.006945,
+    "input_tokens": 20,
+    "output_tokens": 692,
+    "latency_ms": 6640,
+    "text": "Taxes",
+    "error": ""
+   }
+  }
+ }
+}
