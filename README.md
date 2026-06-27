@@ -39,8 +39,8 @@ showing accuracy and savings climbing as Minima accumulates feedback over the ta
 Pre-rendered dashboards are in [`examples/`](examples/) — open the `report.html` files (self-contained,
 no server). From real `recommend → run → feedback` loops against `api.minima.sh`:
 
-- **catalog (live, 12 models):** **85% cost saved** vs all-premium (`claude-opus-4-8`), **100% accuracy
-  retained**, **margin-to-oracle 0.022**; **18 of 23** routing decisions were driven by learned memory.
+- **catalog (live, 12 models):** **46% cost saved** vs all-premium (`claude-opus-4-8`), **100% accuracy
+  retained**, **margin-to-oracle 0.022**; **52 of 69** routing decisions were driven by learned memory.
 - **dataset (LLMRouterBench, hard):** **matches premium accuracy**, **+16.7 pp vs naive-cheapest**,
   **0.033 from oracle** — on hard tasks the value is the cost/quality dial, not free savings.
 

@@ -9,10 +9,10 @@ with `make bench-catalog` / `make bench-dataset`.
 23 deterministically-scored tasks, every model called for real. Headline at the knee operating point
 (cheapest slider retaining ≥90% premium accuracy):
 
-- **85% cost saved vs all-premium** (`claude-opus-4-8`)
+- **46% cost saved vs all-premium** (`claude-opus-4-8`)
 - **100% accuracy retained** vs premium
 - **margin to oracle 0.022** (≈ perfect per-task routing)
-- Minima learned online: **18 of 23** routing decisions were driven by recalled memory, not priors.
+- Minima learned online: **52 of 69** routing decisions were driven by recalled memory, not priors.
 
 The takeaway: on practical tasks a cheap model usually suffices, and Minima *learns which one* — keeping
 flagship-level quality at a fraction of the cost.
