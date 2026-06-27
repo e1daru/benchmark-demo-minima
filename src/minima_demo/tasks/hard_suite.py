@@ -28,6 +28,10 @@ HARD_DATASETS: dict[str, tuple[str, str]] = {
     "livemathbench": ("reasoning", "math"),
     "gpqa": ("qa", "mcq"),
     "mmlupro": ("qa", "mcq"),
+    # Humanity's Last Exam — the hardest set here. Most items need an LLM judge (free-form symbolic
+    # answers), so we keep only the cleanly auto-gradable ones: a single MCQ letter or a numeric
+    # value, extracted from HLE's own "Answer: {...}" response format.
+    "hle": ("qa", "hle"),
 }
 
 
@@ -80,8 +84,57 @@ def mcq_letter(ground_truth: str):
     return score
 
 
+def _after_answer(text: str) -> str:
+    """The text following the last 'Answer:' marker (HLE's response format), up to the next line
+    or the 'Confidence:' field; the whole text if there is no marker."""
+    marks = list(re.finditer(r"answer\s*:?\s*", text or "", re.I))
+    seg = text[marks[-1].end():] if marks else (text or "")
+    return re.split(r"\n|confidence", seg, maxsplit=1, flags=re.I)[0].strip()
+
+
+def hle_answer(ground_truth: str):
+    """Score an HLE item: MCQ-letter if the ground truth is one letter, else numeric match."""
+    g = (ground_truth or "").strip()
+    is_letter = len(g) == 1 and g.isalpha()
+    try:
+        target = float(g.replace(",", ""))
+        numeric = True
+    except ValueError:
+        numeric = False
+
+    def score(text: str) -> float:
+        seg = _after_answer(text or "")
+        if is_letter:
+            hits = re.findall(r"[A-Ja-j]", seg)
+            return 1.0 if (hits and hits[0].upper() == g.upper()) else 0.0
+        if numeric:
+            nums = re.findall(r"-?\d[\d,]*\.?\d*", seg.replace(",", ""))
+            try:
+                return 1.0 if nums and abs(float(nums[-1]) - target) < 1e-6 else 0.0
+            except ValueError:
+                return 0.0
+        return 1.0 if g and g.lower() in seg.lower() else 0.0
+    return score
+
+
+def hle_scorable(ground_truth: str) -> bool:
+    """Keep only HLE items we can grade deterministically: a single letter or a numeric value."""
+    g = (ground_truth or "").strip()
+    if len(g) == 1 and g.isalpha():
+        return True
+    try:
+        float(g.replace(",", ""))
+        return True
+    except ValueError:
+        return False
+
+
 def _scorer(kind: str, ground_truth: str):
-    return math_boxed(ground_truth) if kind == "math" else mcq_letter(ground_truth)
+    if kind == "math":
+        return math_boxed(ground_truth)
+    if kind == "hle":
+        return hle_answer(ground_truth)
+    return mcq_letter(ground_truth)
 
 
 # --- loader -----------------------------------------------------------------------------------
@@ -103,8 +156,12 @@ def load_hard_suite(datasets: tuple[str, ...] | None = None, per_dataset: int = 
     buckets: dict[str, dict[str, dict]] = {d: {} for d in ds}
     for r in lr.iter_raw_records(tarball_path=tarball, datasets=set(ds), models={"gemini-2.5-flash"}):
         d = r["dataset_id"]
-        if r.get("ground_truth") is not None:
-            buckets[d][str(r["index"])] = r
+        gt = r.get("ground_truth")
+        if gt is None:
+            continue
+        if d == "hle" and not hle_scorable(str(gt)):  # skip free-form items needing an LLM judge
+            continue
+        buckets[d][str(r["index"])] = r
 
     tasks: list[LiveTask] = []
     for d in ds:

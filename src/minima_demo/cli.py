@@ -68,7 +68,7 @@ def cmd_bench_catalog(args) -> int:
     run_catalog(s, max_tasks=args.max_tasks, providers=_providers_arg(args.providers),
                 max_tokens=args.max_tokens, dry_run=args.dry_run, use_fixture=args.use_fixture,
                 assume_yes=args.yes, epochs=args.epochs, hard=args.hard,
-                hard_per_dataset=args.hard_per_dataset)
+                hard_per_dataset=args.hard_per_dataset, code=args.code)
     return 0
 
 
@@ -114,6 +114,8 @@ def main(argv: list[str] | None = None) -> int:
     bc.add_argument("--hard", action="store_true",
                     help="use verified hard LLMRouterBench prompts (aime/gpqa/...) — real model gap")
     bc.add_argument("--hard-per-dataset", type=int, default=8, help="hard prompts sampled per dataset")
+    bc.add_argument("--code", action="store_true",
+                    help="LiveCodeBench track: REALLY run each model's code against the tests")
     bc.add_argument("--seed", type=int, default=7)
     bc.set_defaults(fn=cmd_bench_catalog)
 

@@ -28,10 +28,12 @@ from .orchestrate import route_and_report
 from .providers import call_model
 from .tasks import to_spec
 from .tasks.hard_suite import load_hard_suite
+from .tasks.livecode_suite import load_livecode_suite
 from .tasks.suite import LiveTask, select
 
 FIXTURE = Path("fixtures/catalog_matrix.json")
 HARD_FIXTURE = Path("fixtures/hard_matrix.json")
+CODE_FIXTURE = Path("fixtures/code_matrix.json")
 
 
 # --- matrix construction ----------------------------------------------------------------------
@@ -109,7 +111,7 @@ def build_matrix(settings: Settings, tasks: list[LiveTask], pool, *, max_tokens:
 def run_catalog(settings: Settings, *, max_tasks: int | None = None,
                 providers: set[str] | None = None, max_tokens: int = 768,
                 dry_run: bool = False, use_fixture: bool = False, assume_yes: bool = False,
-                hard: bool = False, hard_per_dataset: int = 8,
+                hard: bool = False, hard_per_dataset: int = 8, code: bool = False,
                 sliders: tuple[float, ...] = DEFAULT_SLIDERS,
                 curve_slider: float = DEFAULT_CURVE_SLIDER, epochs: int = 3,
                 outdir: Path | None = None) -> Path:
@@ -121,11 +123,17 @@ def run_catalog(settings: Settings, *, max_tasks: int | None = None,
     if len(pool) < 2:
         raise SystemExit(f"live pool too small ({len(pool)}); need keys for >=2 providers' models.")
 
-    # Hard mode uses verified LLMRouterBench prompts (aime/gpqa/...) where models actually diverge,
-    # and a bigger output budget so step-by-step solutions + the boxed/MCQ answer fit.
-    track = "hard" if hard else "catalog"
-    fixture = HARD_FIXTURE if hard else FIXTURE
-    if hard:
+    # Three task universes share this live pipeline:
+    #  - code: LiveCodeBench problems, scored by REALLY RUNNING the model's code against tests.
+    #  - hard: verified LLMRouterBench prompts (aime/gpqa/...) where models actually diverge.
+    #  - catalog: the curated everyday suite (cheap models suffice — the "save cost" regime).
+    # The harder universes get a bigger output budget so step-by-step solutions + the answer fit.
+    track = "code" if code else ("hard" if hard else "catalog")
+    fixture = CODE_FIXTURE if code else (HARD_FIXTURE if hard else FIXTURE)
+    if code:
+        tasks = load_livecode_suite(n=max_tasks, seed=settings.seed)
+        max_tokens = max(max_tokens, 4096)
+    elif hard:
         tasks = load_hard_suite(per_dataset=hard_per_dataset, seed=settings.seed)
         if max_tasks:
             tasks = tasks[:max_tasks]

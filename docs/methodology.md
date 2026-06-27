@@ -38,15 +38,49 @@ Derived:
 Outcomes use Minima's own thresholds via `minima_harness.tasks.task_set.grade_outcome`
 (`success ≥ 0.8`, `partial ≥ 0.4`, else `failure`).
 
-## Hard track (the informative benchmark)
+## Code track (`bench-code`) — real execution, the hardest coding signal
+
+`bench-catalog --code` is the headline coding benchmark. It pulls real problems from
+**LiveCodeBench** (`livecodebench/code_generation_lite`, release_v6 — atcoder / leetcode /
+codeforces, stratified across the dataset's easy/medium/hard labels) and, for each model, **actually
+runs the generated program against the problem's own test cases**. A problem scores **1.0 iff the
+code passes every evaluated test, else 0.0** — binary pass@1, LiveCodeBench's own metric. There is no
+substring or structure heuristic and no LLM judge: a solution counts only if it *runs correctly*.
+
+Two problem shapes, each graded by execution (see `src/minima_demo/tasks/code_exec.py`):
+
+- **stdin** (atcoder/codeforces) — run the code as a script, feed the case input on `stdin`, compare
+  `stdout` (whitespace-normalised) to the expected output.
+- **functional** (leetcode) — `exec` the code, JSON-parse each input line into an argument, call the
+  `class Solution` method named by the problem's `func_name`, and compare the return value
+  (type-tolerant equality: list/tuple and int/float differences are ignored).
+
+Each case runs in a fresh `python -I` (isolated-mode) subprocess in a scratch directory under a hard
+wall-clock timeout (the process is killed on expiry) plus a best-effort CPU rlimit on POSIX. Model
+code from frontier models solving competitive problems is low-risk, but it is still *untrusted* — the
+harness is process-isolated, **not** a security sandbox; don't run it network-connected or privileged.
+
+The sampled problems (prompt + a capped set of test cases) are cached to
+`fixtures/livecode_problems.json` — committed, so the track is reproducible and runnable **without**
+the large upstream download; a fresh sample is drawn only when that fixture is absent. The results
+matrix is cached to `fixtures/code_matrix.json` like the other tracks, so the dashboard regenerates
+with no keys and no spend.
+
+This is where the substring scorers can't follow: weak models emit plausible code that *fails the
+tests*, strong models emit code that *passes*, so the per-model accuracy gap is real and earned.
+
+## Hard track (`bench-hard`) — verified auto-gradable problems
 
 `bench-catalog --hard` sources **verified hard problems** from LLMRouterBench — `aime`,
-`livemathbench` (competition math, answer in `\boxed{}`) and `gpqa`, `mmlupro` (hard MCQ,
-`Answer: $LETTER`) — and runs them against the **live 12-model catalog**, scoring the model's output
-against the dataset's ground truth (no LLM judge; the prompts carry their own answer format). Unlike
-the easy `catalog` suite (where every 2026 model scores ~1.0), here the models span a large accuracy
-gap (~0.65), and notably **price ≠ quality** on these tasks (a cheap `gemini-3-flash-preview` can beat a
-pricier `gemini-2.5-pro`). That makes it the benchmark that actually exercises routing.
+`livemathbench` (competition math, answer in `\boxed{}`); `gpqa`, `mmlupro` (hard MCQ,
+`Answer: $LETTER`); and `hle` (**Humanity's Last Exam**, the hardest set) — and runs them against the
+**live 12-model catalog**, scoring the model's output against the dataset's ground truth (no LLM
+judge; the prompts carry their own answer format). HLE is mostly free-form symbolic answers that need
+an LLM judge, so we keep only its cleanly auto-gradable items (a single MCQ letter or a numeric value,
+read from HLE's own `Answer: {…}` format). Unlike the easy `catalog` suite (where every 2026 model
+scores ~1.0), here the models span a large accuracy gap, and notably **price ≠ quality** on these
+tasks (a cheap `gemini-3-flash-preview` can beat a pricier `gemini-2.5-pro`). That makes it, alongside
+the code track, the benchmark that actually exercises routing.
 
 **Fair token budget.** Gemini "thinking" tokens are billed as output and count against
 `max_output_tokens`, so an unbounded budget would both distort the cost axis and let one provider use

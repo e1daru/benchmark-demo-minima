@@ -5,7 +5,7 @@ PY  := .venv/bin/python
 BIN := .venv/bin/minima-demo
 RUN ?= $(shell ls -dt results/*/ 2>/dev/null | head -1)   # most recent run dir (for `make report`)
 
-.PHONY: setup fetch-dataset smoke resolve bench-hard bench-catalog bench-catalog-dry bench-dataset report all clean
+.PHONY: setup fetch-dataset smoke resolve bench-code bench-hard bench-catalog bench-catalog-dry bench-dataset report all clean
 
 setup:                ## create the venv and install the demo (pinned deps incl. minima-cli[seed])
 	uv venv --python 3.13 .venv
@@ -21,7 +21,10 @@ smoke:                ## the gate: health + recommend/feedback round-trip agains
 resolve:              ## print the live catalog and the resolved candidate pools for both tracks
 	$(BIN) resolve
 
-bench-hard:           ## HEADLINE: LIVE track on hard verified problems (aime/gpqa/...) — real model gap
+bench-code:           ## HEADLINE: LIVE LiveCodeBench track — REALLY runs each model's code vs tests
+	$(BIN) bench-catalog --code
+
+bench-hard:           ## LIVE track on hard verified problems (aime/gpqa/hle/...) — real model gap
 	$(BIN) bench-catalog --hard
 
 bench-catalog:        ## LIVE track: route over all real catalog models, calling your keys (prompts to confirm spend)

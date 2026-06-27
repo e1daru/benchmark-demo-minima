@@ -2,24 +2,47 @@
 
 Real captured runs (open the `report.html` files in a browser — they're self-contained, no server).
 Numbers are from live `recommend → run → feedback` loops against `api.minima.sh`; regenerate your own
-with `make bench-hard` / `make bench-catalog` / `make bench-dataset`.
+with `make bench-code` / `make bench-hard` / `make bench-catalog` / `make bench-dataset`.
 
-## `hard/` — the headline benchmark, 12 real models on hard verified problems
+## `code/` — the headline benchmark: 12 real models, **real code execution**
 
-20 problems from LLMRouterBench (aime / gpqa / livemathbench / mmlupro), scored against ground truth,
-every one of the 12 catalog models called for real. This is where models actually differ:
+14 LiveCodeBench problems (atcoder + leetcode, stratified easy/medium/hard). Every model's generated
+program is **actually run against the problem's test cases** — binary pass@1, no heuristics, no judge.
+This is where models truly differ on code, and where the "pricier = better" assumption breaks:
 
-- **Accuracy gap across models: 0.65** (best `claude-opus-4-8`/`claude-sonnet-4-6`/`gemini-3-flash-preview`
-  ≈ 0.90, worst `gpt-4o-mini` ≈ 0.25). On these tasks price ≠ quality — e.g. cheap `gemini-3-flash-preview`
-  (0.90) beats pricier `gemini-2.5-pro` (0.65).
-- **Minima matches the best single model** (0.90, **100% retention**) and beats a naive
-  cheapest-everywhere policy by **+45 points** (0.90 vs 0.45).
-- **Margin to oracle 0.10**; the oracle reaches **1.00 at ~4× lower cost than premium** ($0.08 vs $0.34) —
-  perfect per-task routing is both more accurate *and* cheaper, and Minima's accuracy climbs (0.80→0.87)
-  as it accumulates feedback.
+- **Accuracy gap across models: 0.64** — best `gemini-3-flash-preview` **0.86**, worst `gpt-4o` /
+  `gpt-4o-mini` **0.21**. Price ≠ quality: `gemini-3-flash-preview` tops the board at **~10× less
+  cost than `gpt-4o`**, which lands near the bottom.
+- **Minima routes to that cheap-yet-best model**: **100% accuracy retention**, **margin to oracle
+  0.00** (it matches the perfect per-task choice exactly), and **+0.50 accuracy vs naive-cheapest**
+  (0.86 vs 0.36).
+- Because the best model is *also* one of the cheapest, "cost saved vs premium" is ~0 here — the
+  premium baseline is already cheap. The story isn't squeezing cost; it's **routing intelligence**:
+  Minima identifies, from a cold start, the model that is simultaneously top-accuracy and low-cost.
 
-The honest read: on hard tasks you can't save money without losing quality, so the value is **routing
-intelligence** — matching the best model and crushing naive-cheapest — plus visible headroom to the oracle.
+> Learning curve: in this capture the hosted router served every decision from its **prior**
+> (`basis=prior`) — feedback was accepted/written, but recall did not change the pick, so the curve
+> is flat (the prior already chose the optimal model). The visible online-learning *climb* is in the
+> `catalog/` run below, captured when memory recall was engaging. See
+> [../docs/methodology.md](../docs/methodology.md).
+
+## `hard/` — 12 real models on hard verified problems (math / science / HLE)
+
+40 problems from LLMRouterBench (aime / gpqa / livemathbench / mmlupro + **Humanity's Last Exam**),
+scored against ground truth, every one of the 12 catalog models called for real. HLE is brutal enough
+to pull even the strongest models down, so absolute accuracy is low — which is the point:
+
+- **No single model dominates.** Best `gemini-3-flash-preview` **0.725**, worst `gpt-4o-mini` **0.35**
+  (gap 0.375). Price ≠ quality again — the cheap `gemini-3-flash-preview` (0.725) **tops** pricier
+  `claude-opus-4-8` (0.70) and `gemini-3.1-pro-preview` (0.50).
+- **The per-task oracle reaches 0.90** — far above any single model's 0.725. That **0.20 gap is pure
+  routing headroom**: picking the right model per task beats picking any one model everywhere.
+- **Minima matches the best single model** (0.70, **100% retention** vs premium `claude-opus-4-8`) and
+  beats naive-cheapest by **+0.25** (0.70 vs 0.45), at **margin 0.20** to the oracle.
+
+The honest read: on truly hard problems you can't save money without losing quality (the best models
+*are* the costly ones), so the value is **routing intelligence** — matching the best single model,
+crushing naive-cheapest, and chasing an oracle ceiling no single model reaches.
 
 ## `catalog/` — live track, 12 real models (Anthropic · Google · OpenAI)
 
