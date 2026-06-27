@@ -38,6 +38,28 @@ Derived:
 Outcomes use Minima's own thresholds via `minima_harness.tasks.task_set.grade_outcome`
 (`success ≥ 0.8`, `partial ≥ 0.4`, else `failure`).
 
+## Hard track (the informative benchmark)
+
+`bench-catalog --hard` sources **verified hard problems** from LLMRouterBench — `aime`,
+`livemathbench` (competition math, answer in `\boxed{}`) and `gpqa`, `mmlupro` (hard MCQ,
+`Answer: $LETTER`) — and runs them against the **live 12-model catalog**, scoring the model's output
+against the dataset's ground truth (no LLM judge; the prompts carry their own answer format). Unlike
+the easy `catalog` suite (where every 2026 model scores ~1.0), here the models span a large accuracy
+gap (~0.65), and notably **price ≠ quality** on these tasks (a cheap `gemini-3-flash-preview` can beat a
+pricier `gemini-2.5-pro`). That makes it the benchmark that actually exercises routing.
+
+**Fair token budget.** Gemini "thinking" tokens are billed as output and count against
+`max_output_tokens`, so an unbounded budget would both distort the cost axis and let one provider use
+far more tokens than others. The Google adapter therefore caps total output at ~`max_tokens` with up to
+half reserved for reasoning — comparable to the other providers.
+
+**What it shows.** On hard tasks you cannot save money without losing accuracy (the best model *is* the
+premium one), so "savings vs premium" is ~0 — the same honest result as the dataset track. The value is
+**routing intelligence**: Minima matches the best single model (100% retention) and beats a naive
+cheapest-everywhere policy by a wide margin, while the **oracle** (cheapest-correct model per task)
+reveals large headroom — often higher accuracy at several-fold lower cost — which Minima narrows as it
+accumulates feedback.
+
 ## Scoring (catalog track)
 
 Deterministic `quality_fn` per task — exact/normalized substring, last-number extraction, or

@@ -67,7 +67,8 @@ def cmd_bench_catalog(args) -> int:
     s = load_settings(seed=args.seed)
     run_catalog(s, max_tasks=args.max_tasks, providers=_providers_arg(args.providers),
                 max_tokens=args.max_tokens, dry_run=args.dry_run, use_fixture=args.use_fixture,
-                assume_yes=args.yes, epochs=args.epochs)
+                assume_yes=args.yes, epochs=args.epochs, hard=args.hard,
+                hard_per_dataset=args.hard_per_dataset)
     return 0
 
 
@@ -110,6 +111,9 @@ def main(argv: list[str] | None = None) -> int:
     bc.add_argument("--use-fixture", action="store_true", help="replay fixtures/catalog_matrix.json")
     bc.add_argument("--yes", action="store_true", help="skip the live-spend confirmation prompt")
     bc.add_argument("--epochs", type=int, default=3, help="passes over the task set for the curve")
+    bc.add_argument("--hard", action="store_true",
+                    help="use verified hard LLMRouterBench prompts (aime/gpqa/...) — real model gap")
+    bc.add_argument("--hard-per-dataset", type=int, default=8, help="hard prompts sampled per dataset")
     bc.add_argument("--seed", type=int, default=7)
     bc.set_defaults(fn=cmd_bench_catalog)
 

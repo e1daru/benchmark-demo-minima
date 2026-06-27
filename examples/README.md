@@ -2,7 +2,24 @@
 
 Real captured runs (open the `report.html` files in a browser — they're self-contained, no server).
 Numbers are from live `recommend → run → feedback` loops against `api.minima.sh`; regenerate your own
-with `make bench-catalog` / `make bench-dataset`.
+with `make bench-hard` / `make bench-catalog` / `make bench-dataset`.
+
+## `hard/` — the headline benchmark, 12 real models on hard verified problems
+
+20 problems from LLMRouterBench (aime / gpqa / livemathbench / mmlupro), scored against ground truth,
+every one of the 12 catalog models called for real. This is where models actually differ:
+
+- **Accuracy gap across models: 0.65** (best `claude-opus-4-8`/`claude-sonnet-4-6`/`gemini-3-flash-preview`
+  ≈ 0.90, worst `gpt-4o-mini` ≈ 0.25). On these tasks price ≠ quality — e.g. cheap `gemini-3-flash-preview`
+  (0.90) beats pricier `gemini-2.5-pro` (0.65).
+- **Minima matches the best single model** (0.90, **100% retention**) and beats a naive
+  cheapest-everywhere policy by **+45 points** (0.90 vs 0.45).
+- **Margin to oracle 0.10**; the oracle reaches **1.00 at ~4× lower cost than premium** ($0.08 vs $0.34) —
+  perfect per-task routing is both more accurate *and* cheaper, and Minima's accuracy climbs (0.80→0.87)
+  as it accumulates feedback.
+
+The honest read: on hard tasks you can't save money without losing quality, so the value is **routing
+intelligence** — matching the best model and crushing naive-cheapest — plus visible headroom to the oracle.
 
 ## `catalog/` — live track, 12 real models (Anthropic · Google · OpenAI)
 

@@ -16,18 +16,22 @@ from __future__ import annotations
 
 import hashlib
 import json
+from dataclasses import asdict
 from pathlib import Path
 
 from .baselines import Matrix
+from .spec import TaskSpec
 from .catalog import fetch_catalog, resolve_live_pool
 from .config import DEFAULT_CURVE_SLIDER, DEFAULT_SLIDERS, Settings, make_client
 from .metrics import Cell
 from .orchestrate import route_and_report
 from .providers import call_model
 from .tasks import to_spec
+from .tasks.hard_suite import load_hard_suite
 from .tasks.suite import LiveTask, select
 
 FIXTURE = Path("fixtures/catalog_matrix.json")
+HARD_FIXTURE = Path("fixtures/hard_matrix.json")
 
 
 # --- matrix construction ----------------------------------------------------------------------
@@ -105,6 +109,7 @@ def build_matrix(settings: Settings, tasks: list[LiveTask], pool, *, max_tokens:
 def run_catalog(settings: Settings, *, max_tasks: int | None = None,
                 providers: set[str] | None = None, max_tokens: int = 768,
                 dry_run: bool = False, use_fixture: bool = False, assume_yes: bool = False,
+                hard: bool = False, hard_per_dataset: int = 8,
                 sliders: tuple[float, ...] = DEFAULT_SLIDERS,
                 curve_slider: float = DEFAULT_CURVE_SLIDER, epochs: int = 3,
                 outdir: Path | None = None) -> Path:
@@ -116,16 +121,35 @@ def run_catalog(settings: Settings, *, max_tasks: int | None = None,
     if len(pool) < 2:
         raise SystemExit(f"live pool too small ({len(pool)}); need keys for >=2 providers' models.")
 
-    tasks = select(max_tasks=max_tasks)
-    print(f"catalog track: {len(tasks)} tasks x {len(pool)} models "
+    # Hard mode uses verified LLMRouterBench prompts (aime/gpqa/...) where models actually diverge,
+    # and a bigger output budget so step-by-step solutions + the boxed/MCQ answer fit.
+    track = "hard" if hard else "catalog"
+    fixture = HARD_FIXTURE if hard else FIXTURE
+    if hard:
+        tasks = load_hard_suite(per_dataset=hard_per_dataset, seed=settings.seed)
+        if max_tasks:
+            tasks = tasks[:max_tasks]
+        max_tokens = max(max_tokens, 2048)
+    else:
+        tasks = select(max_tasks=max_tasks)
+    print(f"{track} track: {len(tasks)} tasks x {len(pool)} models "
           f"({', '.join(sorted({m.provider for m in pool}))})")
 
     # --- matrix (fixture replay, live build, or simulation) ---
+    # The fixture stores the matrix AND the task prompts ("specs"), so a replay routes the exact
+    # same tasks without re-sampling (hard prompts are sampled from LLMRouterBench and would
+    # otherwise differ across processes).
     if use_fixture:
-        if not FIXTURE.exists():
-            raise SystemExit(f"no fixture at {FIXTURE}; run a live build first (drop --use-fixture).")
-        matrix = Matrix.from_dict(json.loads(FIXTURE.read_text()))
-        print(f"replaying cached matrix from {FIXTURE} ({len(matrix.task_order)} tasks).")
+        if not fixture.exists():
+            raise SystemExit(f"no fixture at {fixture}; run a live build first (drop --use-fixture).")
+        raw = json.loads(fixture.read_text())
+        if isinstance(raw, dict) and "matrix" in raw and "specs" in raw:
+            matrix = Matrix.from_dict(raw["matrix"])
+            specs = [TaskSpec(**s) for s in raw["specs"]]
+        else:  # legacy fixture: raw matrix only — re-derive specs (fine for the fixed `suite`)
+            matrix = Matrix.from_dict(raw)
+            specs = [to_spec(t) for t in tasks if t.id in matrix.cells]
+        print(f"replaying cached matrix from {fixture} ({len(matrix.task_order)} tasks).")
     else:
         if not dry_run:
             est = estimate_cost(tasks, pool, max_tokens)
@@ -136,10 +160,10 @@ def run_catalog(settings: Settings, *, max_tasks: int | None = None,
                     raise SystemExit("aborted (use --dry-run to simulate, or --yes to skip prompt).")
         print("\nbuilding matrix" + (" (simulated)" if dry_run else " (live)") + "…")
         matrix = build_matrix(settings, tasks, pool, max_tokens=max_tokens, dry_run=dry_run)
-        FIXTURE.parent.mkdir(parents=True, exist_ok=True)
-        FIXTURE.write_text(json.dumps(matrix.to_dict(), indent=1))
-        print(f"cached matrix -> {FIXTURE}")
-
-    specs = [to_spec(t) for t in tasks if t.id in matrix.cells]
-    return route_and_report(client, track="catalog", matrix=matrix, specs=specs,
+        specs = [to_spec(t) for t in tasks if t.id in matrix.cells]
+        fixture.parent.mkdir(parents=True, exist_ok=True)
+        fixture.write_text(json.dumps(
+            {"matrix": matrix.to_dict(), "specs": [asdict(s) for s in specs]}, indent=1))
+        print(f"cached matrix -> {fixture}")
+    return route_and_report(client, track=track, matrix=matrix, specs=specs,
                             sliders=sliders, curve_slider=curve_slider, epochs=epochs, outdir=outdir)

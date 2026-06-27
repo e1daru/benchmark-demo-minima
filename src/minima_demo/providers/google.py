@@ -20,7 +20,11 @@ def run(model_id: str, prompt: str, api_key: str, max_tokens: int) -> ModelRun:
     from google.genai import types
 
     client = genai.Client(api_key=api_key)
-    out_budget = max(max_tokens, 1500)
+    # Fair, bounded budget: total output is capped at ~max_tokens (comparable to the other
+    # providers, so the cost axis isn't distorted by runaway thinking), with up to half reserved
+    # for reasoning. Thinking tokens count against max_output_tokens in this SDK, so we size both.
+    think = max(256, max_tokens // 2)
+    total = max_tokens + think
 
     def _call(cfg):
         return client.models.generate_content(model=model_id, contents=prompt, config=cfg)
@@ -28,13 +32,13 @@ def run(model_id: str, prompt: str, api_key: str, max_tokens: int) -> ModelRun:
     started = time.monotonic()
     try:
         resp = _call(types.GenerateContentConfig(
-            max_output_tokens=out_budget,
-            thinking_config=types.ThinkingConfig(thinking_budget=0)))
+            max_output_tokens=total,
+            thinking_config=types.ThinkingConfig(thinking_budget=think)))
         if not (resp.text or "").strip():
-            raise ValueError("empty answer (thinking likely required)")
+            raise ValueError("empty answer")
     except Exception:
-        # Pro tiers reject thinking_budget=0 or need to think first — give them ample room.
-        resp = _call(types.GenerateContentConfig(max_output_tokens=max(out_budget, 8192)))
+        # Some flash-lite tiers reject thinking_config; retry plain within the same budget.
+        resp = _call(types.GenerateContentConfig(max_output_tokens=total))
 
     latency = int((time.monotonic() - started) * 1000)
     um = resp.usage_metadata

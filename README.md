@@ -23,26 +23,35 @@ Headline metrics: **cost saved vs all-premium**, **accuracy retained vs all-prem
 oracle** (0 = perfect), **accuracy lift vs cheapest**, and **avg latency** — plus a **learning curve**
 showing accuracy and savings climbing as Minima accumulates feedback over the task stream.
 
-## Two tracks, one dashboard
+## Three tracks, one dashboard
 
-- **`catalog` (live)** — routes over the **real hosted catalog** (12 current Anthropic / Google /
-  OpenAI models) and **calls them with your keys**. Real cost/latency/tokens; deterministic scorers
-  (no LLM judge). The (task, model) matrix is cached to `fixtures/catalog_matrix.json`, so the
-  dashboard can later be regenerated with **no keys and no spend**.
-- **`dataset` (replay)** — routes over **LLMRouterBench** (the public ACL-Findings benchmark), reusing
-  its precomputed per-(prompt, model) scores and costs. Large-N, fully reproducible, **zero model
-  spend**. Routes over the LLMRouterBench models that resolve to the hosted catalog (see
+- **`hard` (live, headline)** — `bench-catalog --hard`. Routes over the **12 real hosted models**,
+  calling them with your keys on **genuinely hard, verified problems** (LLMRouterBench's aime / gpqa /
+  livemathbench / mmlupro prompts, scored against ground truth). Here the models really *differ*
+  (accuracy spread ~0.65), so routing matters and the benchmark is informative.
+- **`catalog` (live, easy)** — routes the 12 real models on a curated everyday-task suite with
+  deterministic scorers. Useful to show the "a cheap model already suffices, so save cost" regime.
+- **`dataset` (replay)** — routes over **LLMRouterBench** (public ACL-Findings benchmark) reusing its
+  precomputed per-(prompt, model) scores/costs. Large-N, **zero model spend**, fully reproducible.
+  Routes over the LLMRouterBench models that resolve to the hosted catalog (see
   [docs/methodology.md](docs/methodology.md) for the resolution log).
+
+Every track caches its (task, model) matrix to a `fixtures/*.json` file, so any dashboard can be
+regenerated later with **no keys and no spend**.
 
 ## Example results
 
 Pre-rendered dashboards are in [`examples/`](examples/) — open the `report.html` files (self-contained,
 no server). From real `recommend → run → feedback` loops against `api.minima.sh`:
 
-- **catalog (live, 12 models):** **46% cost saved** vs all-premium (`claude-opus-4-8`), **100% accuracy
-  retained**, **margin-to-oracle 0.022**; **52 of 69** routing decisions were driven by learned memory.
-- **dataset (LLMRouterBench, hard):** **matches premium accuracy**, **+16.7 pp vs naive-cheapest**,
-  **0.033 from oracle** — on hard tasks the value is the cost/quality dial, not free savings.
+- **hard (live, 12 models — the real benchmark):** on aime/gpqa/livemathbench/mmlupro the models span
+  a **0.65 accuracy gap** (best 0.90, worst 0.25). Minima **matches the best model (0.90, 100%
+  retention)** and beats a naive cheapest-everywhere policy by **+45 points** (0.90 vs 0.45), while
+  the **oracle ceiling is 1.00 at 4× lower cost** — the headroom Minima is closing as it learns.
+- **catalog (live, easy):** **46% cost saved** vs all-premium at **100% accuracy retained** — the
+  "cheap model suffices" regime; **52 of 69** decisions driven by learned memory.
+- **dataset (LLMRouterBench replay, 3 models):** matches premium accuracy, **+16.7 pp vs cheapest**,
+  **0.033 from oracle**.
 
 ## Quickstart
 
