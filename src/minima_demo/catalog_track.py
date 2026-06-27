@@ -27,7 +27,6 @@ from .metrics import Cell
 from .orchestrate import route_and_report
 from .providers import call_model
 from .tasks import to_spec
-from .tasks.hard_suite import load_hard_suite
 from .tasks.livecode_suite import load_livecode_suite
 from .tasks.suite import LiveTask, select
 
@@ -74,7 +73,7 @@ def _live_cell(settings: Settings, task: LiveTask, model, max_tokens: int) -> Ce
 
 
 def build_matrix(settings: Settings, tasks: list[LiveTask], pool, *, max_tokens: int,
-                 dry_run: bool, workers: int = 10) -> Matrix:
+                 dry_run: bool, workers: int = 16) -> Matrix:
     prices = {m.model_id: m.price for m in pool}
     model_ids = [m.model_id for m in pool]
     # tier rank in [0,1] by output price — only used by the simulator.
@@ -103,6 +102,7 @@ def build_matrix(settings: Settings, tasks: list[LiveTask], pool, *, max_tokens:
 
     return Matrix(cells=cells, models=model_ids, prices=prices,
                   task_types={t.id: t.task_type for t in tasks},
+                  difficulties={t.id: t.difficulty for t in tasks},
                   task_order=[t.id for t in tasks])
 
 
@@ -111,8 +111,8 @@ def build_matrix(settings: Settings, tasks: list[LiveTask], pool, *, max_tokens:
 def run_catalog(settings: Settings, *, max_tasks: int | None = None,
                 providers: set[str] | None = None, max_tokens: int = 768,
                 dry_run: bool = False, use_fixture: bool = False, assume_yes: bool = False,
-                hard: bool = False, hard_per_dataset: int = 8, code: bool = False,
-                sliders: tuple[float, ...] = DEFAULT_SLIDERS,
+                hard: bool = False, hard_per_dataset: int = 3, code: bool = False,
+                workers: int = 16, sliders: tuple[float, ...] = DEFAULT_SLIDERS,
                 curve_slider: float = DEFAULT_CURVE_SLIDER, epochs: int = 3,
                 outdir: Path | None = None) -> Path:
     client = make_client(settings)
@@ -125,7 +125,8 @@ def run_catalog(settings: Settings, *, max_tasks: int | None = None,
 
     # Three task universes share this live pipeline:
     #  - code: LiveCodeBench problems, scored by REALLY RUNNING the model's code against tests.
-    #  - hard: verified LLMRouterBench prompts (aime/gpqa/...) where models actually diverge.
+    #  - hard: a difficulty-graded, multi-type frontier mix (MATH-500 levels 1–5 + LLMRouterBench
+    #          aime/gpqa/... + IFEval) — spans easy→hard so routing actually has something to do.
     #  - catalog: the curated everyday suite (cheap models suffice — the "save cost" regime).
     # The harder universes get a bigger output budget so step-by-step solutions + the answer fit.
     track = "code" if code else ("hard" if hard else "catalog")
@@ -134,7 +135,8 @@ def run_catalog(settings: Settings, *, max_tasks: int | None = None,
         tasks = load_livecode_suite(n=max_tasks, seed=settings.seed)
         max_tokens = max(max_tokens, 4096)
     elif hard:
-        tasks = load_hard_suite(per_dataset=hard_per_dataset, seed=settings.seed)
+        from .tasks.frontier_suite import load_frontier_suite
+        tasks = load_frontier_suite(seed=settings.seed, llmrouterbench_per_dataset=hard_per_dataset)
         if max_tasks:
             tasks = tasks[:max_tasks]
         max_tokens = max(max_tokens, 2048)
@@ -166,12 +168,14 @@ def run_catalog(settings: Settings, *, max_tasks: int | None = None,
             if not assume_yes:
                 if input("  proceed with live calls? [y/N] ").strip().lower() != "y":
                     raise SystemExit("aborted (use --dry-run to simulate, or --yes to skip prompt).")
-        print("\nbuilding matrix" + (" (simulated)" if dry_run else " (live)") + "…")
-        matrix = build_matrix(settings, tasks, pool, max_tokens=max_tokens, dry_run=dry_run)
+        print("\nbuilding matrix" + (" (simulated)" if dry_run else " (live)")
+              + f" with {workers} parallel workers…")
+        matrix = build_matrix(settings, tasks, pool, max_tokens=max_tokens, dry_run=dry_run,
+                              workers=workers)
         specs = [to_spec(t) for t in tasks if t.id in matrix.cells]
         fixture.parent.mkdir(parents=True, exist_ok=True)
         fixture.write_text(json.dumps(
             {"matrix": matrix.to_dict(), "specs": [asdict(s) for s in specs]}, indent=1))
         print(f"cached matrix -> {fixture}")
-    return route_and_report(client, track=track, matrix=matrix, specs=specs,
-                            sliders=sliders, curve_slider=curve_slider, epochs=epochs, outdir=outdir)
+    return route_and_report(client, track=track, matrix=matrix, specs=specs, sliders=sliders,
+                            curve_slider=curve_slider, epochs=epochs, workers=workers, outdir=outdir)

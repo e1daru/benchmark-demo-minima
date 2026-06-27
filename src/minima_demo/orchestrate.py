@@ -23,7 +23,7 @@ from .spec import TaskSpec
 def route_and_report(client: MinimaClient, *, track: str, matrix: Matrix, specs: list[TaskSpec],
                      sliders: tuple[float, ...] = DEFAULT_SLIDERS,
                      curve_slider: float = DEFAULT_CURVE_SLIDER, epochs: int = 1,
-                     outdir: Path | None = None) -> Path:
+                     workers: int = 8, outdir: Path | None = None) -> Path:
     premium_id = matrix.premium_model()
     pool_ids = matrix.models
 
@@ -48,7 +48,7 @@ def route_and_report(client: MinimaClient, *, track: str, matrix: Matrix, specs:
     for s in sliders:
         sweep.extend(run_stream(client, track=track, namespace=ns, tasks=specs,
                                 candidate_models=pool_ids, resolve_cell=resolve, slider=s,
-                                baseline_model_id=premium_id, learn=False, workers=8))
+                                baseline_model_id=premium_id, learn=False, workers=workers))
 
     try:
         savings = client.savings(namespace=ns).model_dump(mode="json")

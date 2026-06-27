@@ -69,30 +69,43 @@ with no keys and no spend.
 This is where the substring scorers can't follow: weak models emit plausible code that *fails the
 tests*, strong models emit code that *passes*, so the per-model accuracy gap is real and earned.
 
-## Hard track (`bench-hard`) — verified auto-gradable problems
+## Hard track (`bench-hard`) — a difficulty-graded, multi-type frontier mix
 
-`bench-catalog --hard` sources **verified hard problems** from LLMRouterBench — `aime`,
-`livemathbench` (competition math, answer in `\boxed{}`); `gpqa`, `mmlupro` (hard MCQ,
-`Answer: $LETTER`); and `hle` (**Humanity's Last Exam**, the hardest set) — and runs them against the
-**live 12-model catalog**, scoring the model's output against the dataset's ground truth (no LLM
-judge; the prompts carry their own answer format). HLE is mostly free-form symbolic answers that need
-an LLM judge, so we keep only its cleanly auto-gradable items (a single MCQ letter or a numeric value,
-read from HLE's own `Answer: {…}` format). Unlike the easy `catalog` suite (where every 2026 model
-scores ~1.0), here the models span a large accuracy gap, and notably **price ≠ quality** on these
-tasks (a cheap `gemini-3-flash-preview` can beat a pricier `gemini-2.5-pro`). That makes it, alongside
-the code track, the benchmark that actually exercises routing.
+`bench-catalog --hard` is a **wide easy→hard suite across several task types**, so routing actually
+has something to do (cheap on easy, escalate on hard). It combines three deterministic, no-LLM-judge
+sources (see `src/minima_demo/tasks/frontier_suite.py`):
+
+- **MATH-500** (`HuggingFaceH4/MATH-500`) — competition math sampled across the dataset's own
+  **difficulty levels 1–5** (mapped 1–2 → easy, 3 → medium, 4–5 → hard); the model boxes its final
+  answer, graded by the numeric-aware `math_boxed`. This is the clean easy→hard gradient.
+- **LLMRouterBench frontier sets** — `aime`, `livemathbench` (math, `\boxed{}`); `gpqa`, `mmlupro`
+  (hard MCQ, `Answer: $LETTER`); and `hle` (**Humanity's Last Exam**, kept to its cleanly
+  auto-gradable letter/numeric items). All genuinely hard, scored against ground truth.
+- **IFEval** (`google/IFEval`) — instruction-following with **verifiable constraints** (word counts,
+  keywords, formatting, casing), a distinct task type. We reimplement 24 of its 25 instruction
+  checkers in the stdlib (`tasks/ifeval_checks.py`; only `language:response_language` is dropped) and
+  sample only prompts whose every constraint is supported. The per-prompt score is the *fraction* of
+  constraints satisfied (loose normalisation, à la the official metric). Difficulty is proxied by the
+  number of simultaneous constraints (1 → easy, 2 → medium, ≥3 → hard).
+
+Unlike the easy `catalog` suite (where every 2026 model scores ~1.0), the models span a large accuracy
+gap here, and notably **price ≠ quality** (a cheap `gemini-3-flash-preview` can beat a pricier
+`gemini-2.5-pro`). The dashboard's **accuracy-by-difficulty** chart reads straight off this mix. Every
+checker (IFEval) and the boxed/MCQ scorers are unit-tested before any live run — a buggy checker would
+understate every model.
 
 **Fair token budget.** Gemini "thinking" tokens are billed as output and count against
 `max_output_tokens`, so an unbounded budget would both distort the cost axis and let one provider use
 far more tokens than others. The Google adapter therefore caps total output at ~`max_tokens` with up to
 half reserved for reasoning — comparable to the other providers.
 
-**What it shows.** On hard tasks you cannot save money without losing accuracy (the best model *is* the
-premium one), so "savings vs premium" is ~0 — the same honest result as the dataset track. The value is
-**routing intelligence**: Minima matches the best single model (100% retention) and beats a naive
-cheapest-everywhere policy by a wide margin, while the **oracle** (cheapest-correct model per task)
-reveals large headroom — often higher accuracy at several-fold lower cost — which Minima narrows as it
-accumulates feedback.
+**What it shows.** Because the suite spans easy→hard, routing has real work to do and the savings story
+returns: at the knee operating point Minima saved **~35% cost vs all-premium at ~96% retention**
+(captured run, 67 tasks), going cheap where the cheapest model already suffices (easy: all policies
+≈0.89) and escalating where it collapses (hard: cheapest 0.51 vs Minima 0.79). The value is **routing
+intelligence**: match the best single model, beat naive-cheapest by a wide margin, and chase the
+**oracle** (cheapest-correct model per task), which reveals further headroom. The *accuracy-by-difficulty*
+chart makes this concrete.
 
 ## Scoring (catalog track)
 
@@ -137,12 +150,14 @@ schema and dashboard but are distinct routing universes.
   tokens (visible + thinking), not just the visible candidate tokens.
 - The **service-side `/v1/savings`** figure (saved as `savings.json`) is an independent cross-check
   on our locally computed savings; small differences are expected (different cost bases).
-- **Memory-write dependency.** The learning curve only climbs when Minima's hosted memory accepts
-  feedback writes. If `feedback()` returns `accepted=false` with `warnings=['memory_write_failed']`
-  (a transient Mubit backend condition we hit during some runs), every recommendation falls back to
-  `decision_basis='prior'` and the curve stays flat — the demo infrastructure is unaffected, but the
-  learning story needs healthy writes. Check `accepted` in the feedback response; the committed
-  example dashboards were captured when writes were healthy (memory drove most decisions).
+- **Memory recall dependency.** Online learning shows only when Minima's hosted memory both *accepts
+  writes* and *engages recall*. Writes are reliably `accepted=true`; recall is intermittent — hosted
+  `agent_routed` recall runs close to its server-side timeout, so in some windows every decision falls
+  back to `decision_basis='prior'` and the curve flattens (the demo infra is unaffected — only the
+  learning story needs recall to land). In the committed runs recall engaged on the **`hard`** track
+  (62 of 134 decisions were `basis=memory`, with routing spread across several models); the **`code`**
+  track was prior-dominated (its cheap-but-strong pick was obvious from cold start). The gap, savings,
+  and difficulty charts do not depend on recall.
 - **Operating point.** Headline numbers are reported at the *knee*: the cheapest slider in Minima's
   sweep that still retains ≥90% of premium accuracy. Low sliders save more but trade quality; high
   sliders chase quality. The full dial is the Pareto chart.

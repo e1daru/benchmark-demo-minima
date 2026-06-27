@@ -13,7 +13,7 @@ The *margin* of any router on a task is ``oracle_accuracy - router_accuracy`` (0
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 
 from .metrics import Cell
 
@@ -37,6 +37,7 @@ class Matrix:
     prices: dict[str, tuple[float, float]] # model_id -> (input_$/Mtok, output_$/Mtok)
     task_types: dict[str, str]             # task_id -> task type
     task_order: list[str]                  # canonical task order (for stable iteration)
+    difficulties: dict[str, str] = field(default_factory=dict)  # task_id -> easy/medium/hard
 
     # --- (de)serialization — the committed fixture that makes replay key-free ------------------
     def to_dict(self) -> dict:
@@ -44,6 +45,7 @@ class Matrix:
             "models": self.models,
             "prices": {m: list(p) for m, p in self.prices.items()},
             "task_types": self.task_types,
+            "difficulties": self.difficulties,
             "task_order": self.task_order,
             "cells": {t: {m: asdict(c) for m, c in row.items()} for t, row in self.cells.items()},
         }
@@ -53,7 +55,8 @@ class Matrix:
         cells = {t: {m: Cell(**c) for m, c in row.items()} for t, row in d["cells"].items()}
         prices = {m: tuple(p) for m, p in d["prices"].items()}
         return cls(cells=cells, models=list(d["models"]), prices=prices,
-                   task_types=dict(d["task_types"]), task_order=list(d["task_order"]))
+                   task_types=dict(d["task_types"]), task_order=list(d["task_order"]),
+                   difficulties=dict(d.get("difficulties", {})))
 
     # --- per-model aggregates -----------------------------------------------------------------
     def _mean(self, getter) -> dict[str, float]:

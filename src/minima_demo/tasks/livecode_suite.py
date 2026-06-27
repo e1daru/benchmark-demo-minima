@@ -27,8 +27,9 @@ PROBLEMS_FIXTURE = Path("fixtures/livecode_problems.json")
 _RAW_URL = ("https://huggingface.co/datasets/livecodebench/code_generation_lite/"
             "resolve/main/test6.jsonl")
 # How many of each difficulty to sample when building the fixture (gap needs the easy↔hard spread).
-_STRATA = {"easy": 4, "medium": 5, "hard": 5}
-_MAX_TESTS = 12   # cap test cases per problem so live grading stays fast and the fixture stays small
+_STRATA = {"easy": 12, "medium": 12, "hard": 12}
+_MAX_TESTS = 10        # cap test cases per problem so live grading stays fast
+_MAX_TEST_CHARS = 4000  # drop individual tests with huge inputs/outputs (keeps the fixture small)
 
 
 # --- prompt construction (mirrors LiveCodeBench's own generation prompt) ----------------------
@@ -95,7 +96,11 @@ def _stream_problems(n_per: dict[str, int], seed: int) -> list[dict]:
         for rec in recs:
             pub = code_exec.decode_tests(rec.get("public_test_cases") or "")
             priv = code_exec.decode_tests(rec.get("private_test_cases") or "")
-            tests = (pub + priv)[:_MAX_TESTS]
+            # Keep only compact tests (drop multi-MB stress cases) so the committed fixture stays
+            # small and grading stays fast — still real execution on the smaller/medium cases.
+            small = [t for t in (pub + priv)
+                     if len(str(t.get("input", ""))) + len(str(t.get("output", ""))) <= _MAX_TEST_CHARS]
+            tests = small[:_MAX_TESTS]
             if not tests:
                 continue
             md = json.loads(rec.get("metadata") or "{}")

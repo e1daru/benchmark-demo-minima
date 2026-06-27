@@ -22,10 +22,10 @@ resolve:              ## print the live catalog and the resolved candidate pools
 	$(BIN) resolve
 
 bench-code:           ## HEADLINE: LIVE LiveCodeBench track — REALLY runs each model's code vs tests
-	$(BIN) bench-catalog --code
+	$(BIN) bench-catalog --code --workers 16
 
-bench-hard:           ## LIVE track on hard verified problems (aime/gpqa/hle/...) — real model gap
-	$(BIN) bench-catalog --hard
+bench-hard:           ## LIVE frontier mix: MATH-500 (lvl 1–5) + LLMRouterBench + IFEval, easy→hard
+	$(BIN) bench-catalog --hard --workers 16
 
 bench-catalog:        ## LIVE track: route over all real catalog models, calling your keys (prompts to confirm spend)
 	$(BIN) bench-catalog

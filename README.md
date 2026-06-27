@@ -29,10 +29,11 @@ showing accuracy and savings climbing as Minima accumulates feedback over the ta
   **LiveCodeBench** problems (atcoder / leetcode / codeforces) and **actually runs each model's
   generated code against the problem's test cases** — binary pass@1, no heuristics, no LLM judge. This
   is the hardest, most honest coding signal: weak models write plausible code that *fails the tests*.
-- **`hard` (live)** — `bench-catalog --hard`. Routes the 12 real models on **genuinely hard, verified
-  problems** (LLMRouterBench's aime / gpqa / livemathbench / mmlupro + Humanity's Last Exam, scored
-  against ground truth). Here the models really *differ*, so routing matters and the benchmark is
-  informative.
+- **`hard` (live)** — `bench-catalog --hard`. A **difficulty-graded, multi-type frontier mix** spanning
+  easy→hard: **MATH-500** (the dataset's own levels 1–5), LLMRouterBench's aime / gpqa / livemathbench /
+  mmlupro + Humanity's Last Exam, and **IFEval** (instruction-following with verifiable constraints).
+  All deterministically scored. The dashboard's *accuracy-by-difficulty* chart shows routing earning
+  its keep: cheap on easy, strong on hard.
 - **`catalog` (live, easy)** — routes the 12 real models on a curated everyday-task suite with
   deterministic scorers. Useful to show the "a cheap model already suffices, so save cost" regime.
 - **`dataset` (replay)** — routes over **LLMRouterBench** (public ACL-Findings benchmark) reusing its
@@ -48,15 +49,15 @@ regenerated later with **no keys and no spend**.
 Pre-rendered dashboards are in [`examples/`](examples/) — open the `report.html` files (self-contained,
 no server). From real `recommend → run → feedback` loops against `api.minima.sh`:
 
-- **code (live, 12 models — real execution, the headline):** on LiveCodeBench, with each model's code
-  *actually run against the tests*, the models span a **0.64 accuracy gap** (best
-  `gemini-3-flash-preview` **0.86**, worst `gpt-4o`/`gpt-4o-mini` **0.21**). Price ≠ quality —
-  the top model costs **~10× less than `gpt-4o`**. Minima routes to it: **100% retention**, **margin
-  to oracle 0.00**, **+0.50 accuracy vs naive-cheapest**.
-- **hard (live, 12 models):** on aime/gpqa/livemathbench/mmlupro/**HLE** no single model dominates
-  (best `gemini-3-flash-preview` **0.725**, worst **0.35**); the per-task **oracle hits 0.90** — a
-  0.20 routing headroom above any one model. Minima **matches the best model (100% retention)** and
-  beats naive-cheapest by **+0.25**.
+- **code (live, 12 models — real execution, the headline):** 36 LiveCodeBench problems (12 easy /
+  12 medium / 12 hard), each model's code *actually run against the tests*. Models span a **0.50
+  accuracy gap** (best `gemini-3.5-flash` **0.81**, worst `gpt-4o` **0.31**). Across the difficulty
+  range Minima saves **78% cost vs all-premium at 97% retention, +0.39 vs naive-cheapest** — cheap on
+  easy (cheapest already 0.92), escalating on hard (where cheapest scores 0.00).
+- **hard (live, 12 models — difficulty-graded frontier mix, 67 tasks):** MATH-500 (levels 1–5) +
+  aime/gpqa/livemathbench/mmlupro/HLE + IFEval, spanning easy→hard. Minima saves **35% cost at 96%
+  retention, +0.16 vs cheapest** (cheap collapses to 0.51 on the hard tier while Minima holds 0.79).
+  Here online learning is visible: **62 of 134 decisions came from recalled memory**.
 - **catalog (live, easy):** **46% cost saved** vs all-premium at **100% accuracy retained** — the
   "cheap model suffices" regime; **52 of 69** decisions driven by learned memory.
 - **dataset (LLMRouterBench replay, 3 models):** matches premium accuracy, **+16.7 pp vs cheapest**,

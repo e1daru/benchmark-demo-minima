@@ -68,7 +68,7 @@ def cmd_bench_catalog(args) -> int:
     run_catalog(s, max_tasks=args.max_tasks, providers=_providers_arg(args.providers),
                 max_tokens=args.max_tokens, dry_run=args.dry_run, use_fixture=args.use_fixture,
                 assume_yes=args.yes, epochs=args.epochs, hard=args.hard,
-                hard_per_dataset=args.hard_per_dataset, code=args.code)
+                hard_per_dataset=args.hard_per_dataset, code=args.code, workers=args.workers)
     return 0
 
 
@@ -112,10 +112,13 @@ def main(argv: list[str] | None = None) -> int:
     bc.add_argument("--yes", action="store_true", help="skip the live-spend confirmation prompt")
     bc.add_argument("--epochs", type=int, default=3, help="passes over the task set for the curve")
     bc.add_argument("--hard", action="store_true",
-                    help="use verified hard LLMRouterBench prompts (aime/gpqa/...) — real model gap")
-    bc.add_argument("--hard-per-dataset", type=int, default=8, help="hard prompts sampled per dataset")
+                    help="broadened frontier track: MATH-500 (levels 1–5) + LLMRouterBench + IFEval")
+    bc.add_argument("--hard-per-dataset", type=int, default=3,
+                    help="LLMRouterBench prompts sampled per frontier dataset")
     bc.add_argument("--code", action="store_true",
                     help="LiveCodeBench track: REALLY run each model's code against the tests")
+    bc.add_argument("--workers", type=int, default=16,
+                    help="parallel model calls for the matrix build + warm sweep")
     bc.add_argument("--seed", type=int, default=7)
     bc.set_defaults(fn=cmd_bench_catalog)
 
